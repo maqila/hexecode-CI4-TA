@@ -113,6 +113,7 @@ class Admin extends BaseController
                 'syarat'     => 'required',
                 'karakter_audisi' => 'required',
                 'poster'     => 'uploaded[poster]|max_size[poster,2048]|is_image[poster]|mime_in[poster,image/jpg,image/jpeg,image/png]',
+                'url_pendaftaran' => 'valid_url'
             ]);
 
             if (!$validation->withRequest($this->request)->run()) {
@@ -141,7 +142,8 @@ class Admin extends BaseController
                 'sutradara'   => $this->request->getPost('sutradara'),
                 'staff'       => $this->request->getPost('staff'),
                 'dibuat_oleh' => $user['nama'],
-                'tgl_dibuat'  => date('Y-m-d H:i:s')
+                'tgl_dibuat'  => date('Y-m-d H:i:s'),
+                'url_pendaftaran' => $this->request->getPost('url_pendaftaran')
             ];
             $this->teaterModel->insert($teaterData);
             $idTeater = $this->teaterModel->insertID();

@@ -182,16 +182,6 @@
                     document.getElementById('harga').value = null; // Kosongkan input harga
                 }
             });
-
-            // Format harga menjadi ribuan (10,000)
-            // function formatHarga(input) {
-            //     let value = input.value.replace(/\D/g, ''); // Hanya angka
-            //     input.value = value.replace(/\B(?=(\d{3})+(?!\d))/g, ',');
-            // }
-
-            // document.getElementById('harga').addEventListener('input', function() {
-            //     formatHarga(this);
-            // });
         });
 
         function toggleLainnya(select) {

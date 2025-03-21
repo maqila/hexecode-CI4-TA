@@ -270,6 +270,9 @@
                         <!-- Right Side (Form Fields) -->
                         <div class="popup-right">
                             <div class="form-group">
+                                <input type="text" name="url_pendaftaran" id="url_pendaftaran" class="form-control" placeholder="Masukkan url web">
+                            </div>
+                            <div class="form-group">
                                 <label for="syarat">Persyaratan aktor</label>
                                 <textarea id="syarat" name="syarat" class="form-control" placeholder="Masukkan persyaratan aktor" required></textarea>
                             </div>
