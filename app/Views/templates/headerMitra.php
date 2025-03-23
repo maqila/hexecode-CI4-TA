@@ -100,6 +100,40 @@
                         <li>
                             <a href="<?= base_url('User/logout') ?>" class="btn btn-label-danger">Sign out</a>
                         </li>
+                        <li>
+                        <div class="dropdown d-inline-block" data-bs-auto-close="outside">
+                            <button type="button" class="btn btn-sm top-icon p-0" id="page-header-user-dropdown" data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                                <img class="rounded avatar-2xs p-0" src="<?= base_url('assets/images/logos/avatar-6.png') ?>" alt="Header Avatar">
+                            </button>
+                            <div class="dropdown-menu dropdown-menu-lg dropdown-menu-end dropdown-menu-animated overflow-hidden py-0" id="user-dropdown-menu">
+                                <div class="card border-0">
+                                    <div class="card-header bg-primary rounded-0">
+                                        <div class="rich-list-item w-100 p-0">
+                                            <div class="rich-list-prepend">
+                                                <div class="avatar avatar-label-light avatar-circle">
+                                                    <div class="avatar-display"><i class="fa-solid fa-user"></i></div>
+                                                </div>
+                                            </div>
+                                            <div class="rich-list-content">
+                                                <!-- Menampilkan nama dan email dari data user yang diteruskan ke view -->
+                                                <h3 class="rich-list-title text-white"><?= esc($user['nama']) ?></h3>
+                                                <span class="rich-list-subtitle text-white"><?= esc($user['email']) ?></span>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="card-body p-0">
+                                        <a href="<?= base_url('Mitra/profile') ?>" class="grid-nav-item">
+                                            <div class="grid-nav-icon"><i class="fa-regular fa-address-card"></i></div>
+                                            <span class="grid-nav-content">Profile</span>
+                                        </a>
+                                    </div>
+                                    <div class="card-footer card-footer-bordered rounded-0">
+                                        <a href="<?= base_url('User/logout') ?>" class="btn btn-label-danger">Sign out</a>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        </li>
                     </ul>
                 </div>
             </div>

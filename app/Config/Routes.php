@@ -49,3 +49,15 @@ $routes->get('Admin/listAudisi', 'Admin::audisi');
 $routes->post('Admin/saveAuditionAktor', 'Admin::saveAuditionAktor');
 $routes->post('Admin/saveAuditionStaff', 'Admin::saveAuditionStaff');
 $routes->get('Admin/approveMitra', 'Admin::approveMitraList');
+
+$routes->post('Admin/saveAuditionAdmin', 'Admin::saveAuditionAdmin');
+$routes->post('Admin/updateAuditionAdmin/(:num)', 'Admin::updateAuditionAdmin/$1');
+$routes->get('Admin/getTeaterData', 'Admin::getTeaterData');
+$routes->delete('Admin/deleteSchedule', 'Admin::deleteSchedule');
+$routes->delete('Admin/deleteWeb', 'Admin::deleteWeb');
+
+$routes->get('Admin/profile', 'Admin::profile');
+$routes->get('Admin/aboutUs', 'Admin::aboutUs');
+$routes->get('Mitra/profile', 'MitraTeater::profile');
+$routes->get('Audiens/profile', 'Audiens::profile');
+

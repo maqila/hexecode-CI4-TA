@@ -317,4 +317,12 @@ class MitraTeater extends BaseController
         return redirect()->to(base_url('MitraTeater/cekStatusView'))
             ->with('error', 'Email tidak ditemukan atau bukan akun mitra.');
     }
+
+    public function profile() {
+        $userId = session()->get('id_user');
+        $user = $this->userModel->find($userId);
+
+        return  view('templates/headerMitra', ['title' => 'Homepage Theaterform', 'user' => $user]) .
+                view('templates/profileUser', ['user' => $user]);
+    }
 }

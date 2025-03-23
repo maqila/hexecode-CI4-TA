@@ -640,6 +640,14 @@ class Audiens extends BaseController
             view('templates/footerListPenampilan', ['needsDropdown' => true]);
     }
 
+    public function profile() {
+        $userId = session()->get('id_user');
+        $user = $this->userModel->find($userId);
+
+        return  view('templates/headerAudiens', ['title' => 'Detail Penampilan Teater', 'user' => $user]) .
+                view('templates/profileUser', ['user' => $user]);
+    }
+  
     public function uploadBuktiPembayaran()
     {
         $userId = session()->get('id_user');
