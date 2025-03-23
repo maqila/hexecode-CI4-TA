@@ -35,6 +35,7 @@ $routes->get('Audiens/detailPenampilan', 'Audiens::DetailPenampilan');
 $routes->get('Audiens/audisiAudiens', 'Audiens::audisiAfterLogin');
 $routes->get('Audiens/detailAudisiAktor', 'Audiens::DetailAudisiAktor');
 $routes->get('Audiens/detailAudisiStaff', 'Audiens::DetailAudisiStaff');
+$routes->post('Audiens/uploadBuktiPembayaran', 'Audiens::uploadBuktiPembayaran');
 
 $routes->get('Mitra/homepage', 'MitraTeater::homepageAfterLogin');
 

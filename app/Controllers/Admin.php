@@ -576,402 +576,153 @@ class Admin extends BaseController
     public function saveAuditionStaff()
     {
         try {
-
-            $db = \Config\Database::connect(); // Pastikan ini ada di awal
-            $query = $db->getLastQuery();
-            log_message('debug', 'Last Query: ' . ($query ? $query : 'NULL'));
-
+            $db = \Config\Database::connect();
             $db->transBegin();
 
-            header("Cache-Control: no-store, no-cache, must-revalidate, max-age=0");
-            header("Cache-Control: post-check=0, pre-check=0", false);
-            header("Pragma: no-cache");
-
-            $validation = \Config\Services::validation();
-
-            // Ambil data user dari session
+            // ✅ Ambil user login dari session
             $userId = session()->get('id_user');
             $user = $this->userModel->find($userId);
-
             if (!$user) {
                 return $this->response->setJSON(['status' => 'error', 'message' => 'User tidak ditemukan.']);
             }
 
-            if (!isset($user['nama']) || empty($user['nama'])) {
+            // ✅ Validasi input dasar
+            $validation = \Config\Services::validation();
+            $validation->setRules([
+                'judul'           => 'required',
+                'penulis'         => 'required',
+                'sutradara'       => 'required',
+                'syarat'          => 'required',
+                'jenis_staff'     => 'required',
+                'poster'          => 'uploaded[poster]|is_image[poster]|mime_in[poster,image/jpg,image/jpeg,image/png]|max_size[poster,2048]',
+                'url_pendaftaran' => 'permit_empty|valid_url'
+            ]);
+
+            if (!$validation->withRequest($this->request)->run()) {
                 return $this->response->setJSON([
-                    'status' => 'error',
-                    'message' => 'Data pengguna tidak ditemukan.'
+                    'status'  => 'error',
+                    'message' => 'Validasi gagal',
+                    'errors'  => $validation->getErrors()
                 ]);
             }
 
-            if ($this->request->getMethod() === 'POST') {
-                // Ambil semua data dari form
-                $data = $this->request->getPost();
+            // ✅ Upload Poster
+            $poster = $this->request->getFile('poster');
+            $posterPath = null;
+            if ($poster && $poster->isValid() && !$poster->hasMoved()) {
+                $posterPath = 'uploads/posters/' . $poster->getRandomName();
+                $poster->move(ROOTPATH . 'public/' . $posterPath);
+            }
 
-                // Validasi input
-                $validation->setRules([
-                    'tipe_teater'  => 'required|in_list[penampilan,audisi]',
-                    'judul'        => 'required',
-                    'poster'       => 'uploaded[poster]|max_size[poster,2048]|is_image[poster]|mime_in[poster,image/jpg,image/jpeg,image/png]',
-                    'sinopsis'     => 'required',
-                    'penulis'      => 'required',
-                    'sutradara'    => 'required',
-                    'syarat'       => 'required',
-                ]);
+            // ✅ Simpan ke m_teater
+            $teaterData = [
+                'tipe_teater'      => 'audisi',
+                'judul'            => $this->request->getPost('judul'),
+                'poster'           => $posterPath,
+                'sinopsis'         => $this->request->getPost('sinopsis') ?? '-',
+                'penulis'          => $this->request->getPost('penulis'),
+                'sutradara'        => $this->request->getPost('sutradara'),
+                'staff'            => $this->request->getPost('staff') ?? 'Tidak ada staff',
+                'dibuat_oleh'      => $user['nama'],
+                'tgl_dibuat'       => date('Y-m-d H:i:s'),
+                'url_pendaftaran'  => $this->request->getPost('url_pendaftaran') ?? null
+            ];
 
-                if (!$validation->withRequest($this->request)->run()) {
-                    return $this->response->setJSON([
-                        'status' => 'error',
-                        'message' => 'Validasi gagal',
-                        'errors' => $validation->getErrors()
+            $this->teaterModel->insert($teaterData);
+            $idTeater = $this->teaterModel->insertID();
+            if (!$idTeater) throw new \Exception("Gagal menyimpan `m_teater`");
+
+            // ✅ Simpan ke m_audisi
+            $audisiData = [
+                'id_teater'      => $idTeater,
+                'id_kategori'    => $this->request->getPost('id_kategori') ?? 2,
+                'syarat'         => $this->request->getPost('syarat'),
+                'syarat_dokumen' => $this->request->getPost('syarat_dokumen') ?? '-',
+                'gaji'           => $this->request->getPost('gaji_staff') ?? 0,
+                'komitmen'       => $this->request->getPost('komitmen_staff') ?? '-'
+            ];
+            $this->audisiModel->insert($audisiData);
+            $idAudisi = $this->audisiModel->insertID();
+            if (!$idAudisi) throw new \Exception("Gagal menyimpan `m_audisi`");
+
+            // ✅ Simpan ke m_audisi_staff
+            $this->audisiStaffModel->insert([
+                'id_audisi'     => $idAudisi,
+                'jenis_staff'   => $this->request->getPost('jenis_staff'),
+                'jobdesc_staff' => $this->request->getPost('jobdesc_staff') ?? '-'
+            ]);
+
+            // ✅ Simpan Jadwal Audisi ke m_show_schedule
+            $scheduleData = json_decode($this->request->getPost('hidden_schedule_staff'), true);
+            if ($scheduleData) {
+                foreach ($scheduleData as $schedule) {
+                    // Simpan Lokasi
+                    $this->lokasiTeaterModel->insert([
+                        'tempat' => $schedule['tempat'],
+                        'kota'   => $schedule['kota']
                     ]);
-                }
-
-                $poster = $this->request->getFile('poster');
-
-                if (!$poster || !$poster->isValid()) {
-                    return $this->response->setJSON([
-                        'status'  => 'error',
-                        'message' => $poster ? $poster->getErrorString() : 'No file uploaded'
-                    ]);
-                }
-
-                // Periksa apakah file sudah diproses sebelumnya
-                if ($poster->hasMoved()) {
-                    return $this->response->setJSON([
-                        'status'  => 'error',
-                        'message' => 'File sudah diproses sebelumnya.'
-                    ]);
-                }
-
-                // Periksa format file yang diizinkan
-                $allowedTypes = ['image/png', 'image/jpeg', 'image/jpg'];
-                if (!in_array($poster->getMimeType(), $allowedTypes)) {
-                    return $this->response->setJSON([
-                        'status'  => 'error',
-                        'message' => 'Format file poster tidak didukung.'
-                    ]);
-                }
-
-                // Pastikan folder tujuan ada
-                $uploadPath = ROOTPATH . 'public/uploads/posters/';
-                if (!is_dir($uploadPath)) {
-                    mkdir($uploadPath, 0777, true);
-                }
-
-                // Buat nama file baru dan pindahkan file
-                $newName = $poster->getRandomName();
-                if (!$poster->move($uploadPath, $newName)) {
-                    return $this->response->setJSON([
-                        'status'  => 'error',
-                        'message' => 'Gagal mengunggah poster.'
-                    ]);
-                }
-
-                // Simpan path relatif
-                $posterUrl = 'uploads/posters/' . $newName;
-                log_message('debug', 'Poster uploaded: ' . $posterUrl);
-
-                // Simpan data audisi ke tabel m_teater
-                $teaterData = [
-                    'tipe_teater'  => $data['tipe_teater'],
-                    'judul'        => $data['judul'],
-                    'poster'       => $posterUrl,
-                    'sinopsis'     => $data['sinopsis'],
-                    'penulis'      => $data['penulis'],
-                    'sutradara'    => $data['sutradara'],
-                    'staff'        => $data['staff'],
-                    'dibuat_oleh'  => $user['nama'],
-                    'dimodif_oleh' => null
-                ];
-
-                log_message('debug', 'Request data: ' . json_encode($this->request->getPost()));
-
-                if (!$this->teaterModel->save($teaterData)) {
-                    $db->transRollback();
-                    log_message('error', 'Gagal menyimpan ke database: ' . json_encode($this->teaterModel->errors()));
-
-                    return $this->response->setJSON([
-                        'success' => false,
-                        'message' => 'Gagal menyimpan ke database.',
-                        'errors'  => $this->teaterModel->errors()
-                    ]);
-                }
-
-                log_message('debug', 'Data yang diterima: ' . json_encode($teaterData));
-
-                $idTeater = $this->teaterModel->getInsertID();
-
-                if (!$idTeater) {
-                    $db->transRollback();
-                    log_message('error', 'Gagal mendapatkan ID teater setelah insert.');
-
-                    return $this->response->setJSON([
-                        'success' => false,
-                        'message' => 'Gagal mendapatkan ID teater.'
-                    ]);
-                }
-
-                log_message('debug', 'ID Teater yang dibuat: ' . $idTeater);
-
-                $audisiData = [
-                    'id_teater'         => $idTeater,
-                    'id_kategori'       => $data['id_kategori'],
-                    'syarat'            => $data['syarat'],
-                    'syarat_dokumen'    => $data['syarat_dokumen'],
-                    'gaji'              => $data['gaji'],
-                    'komitmen'          => $data['komitmen']
-                ];
-
-                if (!$this->audisiModel->save($audisiData)) {
-                    return $this->response->setJSON(['status' => 'error', 'message' => 'Gagal menyimpan data audisi teater.']);
-                }
-
-                // Ambil ID user yang baru disimpan
-                $idAudisi = $this->audisiModel->getInsertID();
-                if (!$idAudisi) {
-                    return $this->response->setJSON([
-                        'status' => 'error',
-                        'message' => 'Gagal mendapatkan ID Audisi.'
-                    ]);
-                }
-
-                log_message('debug', 'ID Audisi yang dibuat: ' . $idAudisi);
-
-                $staffData = [
-                    'id_audisi'             => $idAudisi,
-                    'jenis_staff'       => $data['jenis_staff'],
-                    'jobdesc_staff'    => $data['jobdesc_staff']
-                ];
-
-                if (!$this->audisiStaffModel->save($staffData)) {
-                    return $this->response->setJSON(['status' => 'error', 'message' => 'Gagal menyimpan data audisi teater.']);
-                }
-
-                // Ambil ID user yang baru disimpan
-                $idStaff = $this->audisiStaffModel->getInsertID();
-                if (!$idStaff) {
-                    return $this->response->setJSON([
-                        'status' => 'error',
-                        'message' => 'Gagal mendapatkan ID Staff.'
-                    ]);
-                }
-
-                log_message('debug', 'ID Staff yang dibuat: ' . $idStaff);
-
-                $hiddenSchedule = json_decode($data['hidden_schedule'], true);
-                log_message('debug', 'Decoded schedule: ' . print_r($hiddenSchedule, true));
-
-                if (json_last_error() !== JSON_ERROR_NONE || !is_array($hiddenSchedule)) {
-                    log_message('error', 'JSON Error: ' . json_last_error_msg());
-                    return $this->response->setJSON(['status' => 'error', 'message' => 'Format jadwal audisi tidak valid.']);
-                }
-
-                if (empty($hiddenSchedule)) {
-                    return $this->response->setJSON(['status' => 'error', 'message' => 'Jadwal audisi tidak boleh kosong.']);
-                }
-
-                log_message('debug', 'Isi schedule: ' . json_encode($hiddenSchedule));
-
-                foreach ($hiddenSchedule as $index => $schedule) {
-                    $tanggal = $schedule['tanggal'];
-                    $waktu_mulai = $schedule['waktu_mulai'];
-                    $waktu_selesai = $schedule['waktu_selesai'];
-                    $tempat = $schedule['tempat'];
-                    $kota = $schedule['kota'];
-                    $tipe_harga = isset($schedule['tipe_harga']) && $schedule['tipe_harga'] === 'Gratis' ? 'Gratis' : 'Bayar';
-                    $harga = isset($schedule['harga']) ? (int)$schedule['harga'] : null;
-
-                    log_message('debug', "Jadwal ke-$index: Tanggal: $tanggal, Mulai: $waktu_mulai, Selesai: $waktu_selesai, Kota: $kota, Tempat: $tempat");
-                    log_message('debug', 'Harga dari schedule: ' . print_r($schedule['harga'], true));
-
-                    $locationData = [
-                        'tempat' => $tempat,
-                        'kota' => $kota,
-                    ];
-
-                    $db->transBegin();
-
-                    log_message('debug', 'Data lokasi yang akan disimpan: ' . json_encode($locationData));
-
-                    if (!$this->lokasiTeaterModel->save($locationData)) {
-                        $db->transRollback();
-                        log_message('error', 'Gagal menyimpan lokasi: ' . json_encode($this->lokasiTeaterModel->errors()));
-                        return $this->response->setJSON([
-                            'status' => 'error',
-                            'message' => 'Gagal menyimpan lokasi audisi teater.',
-                            'errors'  => $this->lokasiTeaterModel->errors()
-                        ]);
-                    }
-
-                    $idLocation = $this->lokasiTeaterModel->getInsertID();
-                    log_message('debug', 'ID Location yang didapat setelah insert: ' . json_encode($idLocation));
-
-                    if (!$idLocation) {
-                        $db->transRollback();
-                        return $this->response->setJSON([
-                            'status' => 'error',
-                            'message' => 'Gagal mendapatkan ID Location setelah insert.'
-                        ]);
-                    }
-
-                    // Simpan data jadwal audisi ke m_show_schedule
-                    $scheduleData = [
-                        'id_teater'   => $idTeater,
-                        'id_location' => $idLocation,
-                        'tanggal'     => $tanggal,
-                        'waktu_mulai' => $waktu_mulai,
-                        'waktu_selesai' => $waktu_selesai,
-                    ];
-
-                    $db->transBegin();
-
-                    if (!$this->showScheduleModel->save($scheduleData)) {
-                        $db->transRollback();
-                        log_message('error', 'Error saat menyimpan audisi: ' . json_encode($this->showScheduleModel->errors()));
-                        return $this->response->setJSON(['status' => 'error', 'message' => 'Gagal menyimpan data jadwal audisi teater.']);
-                    }
-
-                    // Ambil ID user yang baru disimpan
-                    $idSchedule = $this->showScheduleModel->getInsertID();
-
-                    if (!$idSchedule) {
-                        $db->transRollback();
-                        return $this->response->setJSON([
-                            'status' => 'error',
-                            'message' => 'Gagal mendapatkan ID Schedule audisi teater.'
-                        ]);
-                    }
-
-                    // Cek tipe harga
-                    if ($schedule['tipe_harga'] === 'Bayar') {
-
-                        $harga = $this->request->getPost('harga');
-                        $harga = intval($schedule['harga']); // Ubah ke integer
-
-
-                        log_message('debug', 'Harga sebelum validasi: ' . print_r($harga, true));
-
-                        if ($harga === null) {
-                            return $this->response->setJSON(['status' => 'error', 'message' => 'Format harga tidak valid.']);
-                        }
-
-                        if (!is_numeric($harga)) {
-                            log_message('error', 'Harga tidak valid: ' . print_r($harga, true));
-                            return json_encode(['status' => 'error', 'message' => 'Format harga tidak valid.']);
-                        }
-
-                        $PricingData = [
-                            'id_audisi'    => $idAudisi,
-                            'tipe_harga'   => 'Bayar',
-                            'harga'        => $harga
-                        ];
-
-                        $db->transBegin();
-
-                        if (!$this->audisiScheduleModel->save($PricingData)) {
-                            $db->transRollback();
-                            return $this->response->setJSON(['status' => 'error', 'message' => 'Gagal menyimpan harga audisi.']);
-                        }
-
-                        $idPricing = $this->audisiScheduleModel->getInsertID();
-
-                        if (!$idPricing) {
-                            $db->transRollback();
-                            return $this->response->setJSON([
-                                'status' => 'error',
-                                'message' => 'Gagal mendapatkan ID pricing audisi teater.'
-                            ]);
-                        }
-
-                        if ($idSchedule && $idPricing) {
-                            $this->db->table('r_audisi_schedule')->insert([
-                                'id_schedule' => $idSchedule,
-                                'id_pricing_audisi'  => $idPricing
-                            ]);
-                        } elseif ($tipe_harga === 'Gratis') {
-                            $PricingData = [
-                                'id_audisi'    => $idAudisi,
-                                'tipe_harga'   => 'Gratis',
-                                'harga'        => null
-                            ];
-
-                            $db->transBegin();
-
-                            if (!$this->audisiScheduleModel->save($PricingData)) {
-                                $db->transRollback();
-                                return $this->response->setJSON(['status' => 'error', 'message' => 'Gagal menyimpan harga gratis.']);
-                            }
-
-                            $idPricing = $this->audisiScheduleModel->getInsertID();
-
-                            if (!$idPricing) {
-                                $db->transRollback();
-                                return $this->response->setJSON([
-                                    'status' => 'error',
-                                    'message' => 'Gagal mendapatkan ID pricing audisi teater.'
-                                ]);
-                            }
-
-                            if ($idSchedule && $idPricing) {
-                                // Simpan relasi antara jadwal dan harga seat
-                                $this->db->table('r_audisi_schedule')->insert([
-                                    'id_schedule' => $idSchedule,
-                                    'id_pricing_audisi'  => $idPricing
-                                ]);
-                            } else {
-                                log_message('error', 'Gagal menyimpan relasi antara jadwal dan harga seat.');
-                            }
-                        }
-
-                        log_message('debug', 'Data jadwal diterima: ' . json_encode($hiddenSchedule));
-                    }
-
-                    // Setelah id_teater berhasil didapatkan, baru panggil fungsi sosmed
-                    if (!empty($data['id_mitra'])) {
-                        $this->getMitraSosmed($data['id_mitra'], $idTeater);
-                    }
-
-                    // Jika ada sosial media tambahan dari user, simpan ke r_teater_sosmed
-                    if (!empty($data['sosmed_platform']) && !empty($data['sosmed_username'])) {
-                        $this->saveTeaterSosmed($idTeater, $data['sosmed_platform'], $data['sosmed_username']);
-                    }
-
-                    $webData = [
-                        'id_teater'   => $idTeater,
-                        'judul_web'   => $data['judul_web'],
-                        'url_web'     => $data['url_web'],
-                    ];
-
-                    if (!$this->teaterWebModel->save($webData)) {
-                        return $this->response->setJSON(['status' => 'error', 'message' => 'Gagal menyimpan data web teater.']);
-                    }
-
-                    // Ambil ID user yang baru disimpan
-                    $idTeaterWeb = $this->teaterWebModel->getInsertID();
-                    if (!$idTeaterWeb) {
-                        return $this->response->setJSON([
-                            'status' => 'error',
-                            'message' => 'Gagal mendapatkan ID web teater.'
-                        ]);
-                    }
-
-                    $db->transCommit();
-                    return $this->response->setJSON([
-                        'success'  => true,
-                        'message'  => 'Teater berhasil ditambahkan!',
-                        'id_teater' => $idTeater,
-                        'redirect' => base_url('Admin/listAudisi') // Tambahkan URL redirect
+                    $idLokasi = $this->lokasiTeaterModel->insertID();
+
+                    $this->showScheduleModel->insert([
+                        'id_teater'     => $idTeater,
+                        'id_location'   => $idLokasi,
+                        'tanggal'       => $schedule['tanggal'],
+                        'waktu_mulai'   => $schedule['waktu_mulai'],
+                        'waktu_selesai' => $schedule['waktu_selesai'] ?? '00:00:00'
                     ]);
                 }
             }
+
+            // ✅ Simpan Harga Audisi ke m_audisi_schedule
+            $this->audisiScheduleModel->insert([
+                'id_audisi'   => $idAudisi,
+                'harga'       => $this->request->getPost('harga_staff') ?? 0,
+                'tipe_harga'  => $this->request->getPost('tipe_harga_staff') ?? 'Gratis'
+            ]);
+
+            // ✅ Simpan Sosial Media ke r_teater_sosmed
+            $sosmed = json_decode($this->request->getPost('hidden_accounts_staff'), true);
+            if (!empty($sosmed)) {
+                foreach ($sosmed as $item) {
+                    $this->teaterSosmedModel->insert([
+                        'id_teater'          => $idTeater,
+                        'id_platform_sosmed' => $item['platformId'],
+                        'acc_teater'         => $item['account']
+                    ]);
+                }
+            }
+
+            // ✅ Simpan Website Teater ke m_teater_web
+            $webs = json_decode($this->request->getPost('hidden_web_staff'), true);
+            if (!empty($webs)) {
+                foreach ($webs as $w) {
+                    $this->teaterWebModel->insert([
+                        'id_teater'  => $idTeater,
+                        'judul_web'  => $w['title'],
+                        'url_web'    => $w['url']
+                    ]);
+                }
+            }
+
+            // ✅ Commit transaksi
+            if (!$db->transStatus()) {
+                throw new \Exception("Transaksi database gagal.");
+            }
+
+            $db->transCommit();
+
+            return $this->response->setJSON([
+                'status'  => 'success',
+                'message' => 'Audisi Staff berhasil disimpan!',
+                'redirect' => base_url('Admin/listAudisi')
+            ]);
         } catch (\Exception $e) {
             $db->transRollback();
-            log_message('error', 'Error: ' . $e->getMessage());
+            log_message('error', '❌ Gagal Audisi Staff: ' . $e->getMessage());
             return $this->response->setJSON([
-                'success' => false,
+                'status'  => 'error',
                 'message' => 'Terjadi kesalahan pada server.',
-                'errors'  => $e->getMessage() // Debug untuk melihat validasi gagal
+                'errors'  => $e->getMessage()
             ]);
         }
     }

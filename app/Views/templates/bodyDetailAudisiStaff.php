@@ -85,6 +85,7 @@
             </div>
             <div class="actions">
                 <button id="btnPesan">Pesan Tiket</button>
+                <button id="btnUploadBukti">Upload Tiket</button>
             </div>
         </div>
 
@@ -104,6 +105,20 @@
             <input type="file" id="buktiPembayaran">
             <button id="btnUpload" class="btn-primary">Upload</button>
             <button id="btnBatalUpload" class="btn-secondary">Batal</button>
+        </div>
+
+        <!-- Form Upload Bukti Pembayaran -->
+        <div class="popup" id="popupUploadBukti">
+            <h2>Upload Bukti Pembayaran</h2>
+            <form id="formUploadBukti" action="<?= base_url('Audiens/uploadBuktiPembayaran') ?>" method="POST" enctype="multipart/form-data">
+                <?= csrf_field(); ?>
+                <!-- <input type="hidden" name="id_teater" value=""> Pastikan ini dikirim dari controller -->
+                <input type="hidden" name="id_teater" value="60"> <!-- ini hanya sementara karena view data teater untuk mengambil id belom ada jika sudah ada tambahkan id teater di value -->
+                <input type="file" name="bukti" required>
+                <br><br>
+                <button type="submit" class="btn-primary">Upload</button>
+                <button type="button" class="btn-secondary" onclick="closePopup()">Batal</button>
+            </form>
         </div>
     </div>
 </body>

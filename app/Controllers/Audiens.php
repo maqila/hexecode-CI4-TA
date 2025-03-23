@@ -4,6 +4,7 @@ namespace App\Controllers;
 
 use App\Models\User;
 use App\Models\AudiensModel;
+use App\Models\BuktiPembayaran;
 use CodeIgniter\Controller;
 
 class Audiens extends BaseController
@@ -12,6 +13,7 @@ class Audiens extends BaseController
     protected $userModel;
     protected $user;
     protected $audiensModel;
+    protected $buktiPembayaranModel;
 
     public function __construct()
     {
@@ -19,6 +21,7 @@ class Audiens extends BaseController
 
         $this->userModel = new User(); // Pastikan UserModel sudah ada
         $this->audiensModel = new AudiensModel(); // Instance model Audiens
+        $this->buktiPembayaranModel = new BuktiPembayaran(); // Instance model BuktiPembayaran
         $this->user = session()->get(); // Ambil semua data dari session
     }
 
@@ -644,7 +647,7 @@ class Audiens extends BaseController
         return  view('templates/headerAudiens', ['title' => 'Detail Penampilan Teater', 'user' => $user]) .
                 view('templates/profileUser', ['user' => $user]);
     }
-
+  
     public function uploadBuktiPembayaran()
     {
         $userId = session()->get('id_user');
