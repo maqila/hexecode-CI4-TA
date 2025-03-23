@@ -49,6 +49,8 @@ class Admin extends BaseController
     protected $audisiStaffModel;
     protected $teaterSosmedModel;
 
+    protected $penampilan;
+
     protected $db;
 
     public function __construct()
@@ -74,6 +76,7 @@ class Admin extends BaseController
         $this->audisiPricingModel = new AudisiPricing();
         $this->audisiStaffModel = new AudisiStaff();
         $this->teaterSosmedModel = new TeaterSosmed();
+        $this->penampilan = new Penampilan();
 
         $this->db = \Config\Database::connect();
     }
@@ -88,6 +91,329 @@ class Admin extends BaseController
         return view('templates/headerAdmin', ['title' => 'Homepage Admin', 'user' => $user]) .
             view('templates/homepageAdmin') .
             view('templates/footer');
+    }
+
+    //Menyimpan Penampilan 
+    public function saveAuditionAdmin() {
+        try {
+            $db = \Config\Database::connect();
+            $db->transBegin(); // Mulai transaksi
+
+            // Cek user dari session
+            $userId = session()->get('id_user');
+            $user = $this->userModel->find($userId);
+            if (!$user) {
+                return $this->response->setJSON(['status' => 'error', 'message' => 'User tidak ditemukan.']);
+            }
+
+            // Validasi input
+            $validation = \Config\Services::validation();
+            $validation->setRules([
+                'judul'      => 'required',
+                'poster'     => 'uploaded[poster]|max_size[poster,2048]|is_image[poster]|mime_in[poster,image/jpg,image/jpeg,image/png]',
+                'sinopsis'   => 'required',
+                'penulis'    => 'required',
+                'sutradara'  => 'required',
+                'staff'      => 'required',
+                'url_pendaftaran' => 'valid_url'
+            ]);
+
+            // Jika validasi gagal
+            if (!$validation->withRequest($this->request)->run()) {
+                return $this->response->setJSON([
+                    'status' => 'error',
+                    'message' => 'Validasi gagal',
+                    'errors' => $validation->getErrors()
+                ]);
+            }
+
+            // Upload poster
+            $poster = $this->request->getFile('poster');
+            $posterPath = null;
+            if ($poster->isValid() && !$poster->hasMoved()) {
+                $posterPath = 'uploads/posters/' . $poster->getRandomName();
+                $poster->move(ROOTPATH . 'public/' . $posterPath);
+            }
+
+            // Simpan data ke m_teater
+             $teaterData = [
+                'tipe_teater' => 'penampilan',
+                'judul'       => $this->request->getPost('judul'),
+                'poster'      => $posterPath,
+                'sinopsis'    => $this->request->getPost('sinopsis'),
+                'penulis'     => $this->request->getPost('penulis'),
+                'sutradara'   => $this->request->getPost('sutradara'),
+                'staff'       => $this->request->getPost('staff'),
+                'dibuat_oleh' => $user['nama'],
+                'tgl_dibuat'  => date('Y-m-d H:i:s'),
+                'dimodif_oleh' => $user['nama'],
+                'tgl_dimodif' => date('Y-m-d H:i:s'),
+                'url_pendaftaran' => $this->request->getPost('url_pendaftaran')
+            ];
+            $this->teaterModel->insert($teaterData);
+            $idTeater = $this->teaterModel->insertID();
+
+            // Simpan data ke m_penampilan
+            $penampilanData = [
+                'id_teater' => $idTeater,
+                'aktor'    => $this->request->getPost('aktor'),
+                'durasi' => $this->request->getPost('durasi'),
+                'rating_umur'      => $this->request->getPost('rating_umur'),
+            ];
+            $this->penampilan->insert($penampilanData);
+            $idPenampilan = $this->penampilan->insertID();
+            
+            // Simpan data ke m_seat_category
+            $denah_seat = $this->request->getFile('denah_seat');
+            $denahSeatName = null;
+            if ($denah_seat->isValid() && !$denah_seat->hasMoved()) {
+                $denahSeatName = 'uploads/posters/' . $denah_seat->getRandomName();
+                $denah_seat->move(ROOTPATH . 'public/' . $denahSeatName);
+            } else {
+                $denahSeatName = 'assets/images/seat1.jpg';
+            }
+            $seatCategoryData = [
+                'nama_kategori' => $this->request->getPost('nama_kategori') ?? 'Kategori Biasa',
+                'denah_seat' => $denahSeatName,
+            ];
+            $this->kategoriSeatModel->insert($seatCategoryData);
+            $idKategoriSeat = $this->kategoriSeatModel->insertID();
+
+            // Simpan data ke m_seat_pricing
+            $seatPricingData = [
+                'id_penampilan' => $idPenampilan,
+                'id_kategori_seat' => $idKategoriSeat,
+                'harga' => $this->request->getPost('harga') ?? 0,
+                'tipe_harga' => $this->request->getPost('tipe_harga')
+            ];
+            $this->seatPricingModel->insert($seatPricingData);
+
+            // Simpan data ke m_lokasi_teater
+            $scheduleData = json_decode($this->request->getPost('hidden_schedule'), true);
+            if ($scheduleData) {
+                foreach ($scheduleData as $schedule) {
+                    // Buat lokasi berdasarkan masing-masing data
+                    $lokasiData = [
+                        'tempat' => $schedule['tempat'],
+                        'kota'   => $schedule['kota']
+                    ];
+                    $this->lokasiTeaterModel->insert($lokasiData);
+                    $idLokasi = $this->lokasiTeaterModel->insertID();
+
+                    $this->showScheduleModel->insert([
+                        'id_teater' => $idTeater,
+                        'id_location' => $idLokasi,
+                        'tanggal' => $schedule['tanggal'],
+                        'waktu_mulai' => $schedule['waktu_mulai'],
+                        'waktu_selesai' => $schedule['waktu_selesai']
+                    ]);
+                }
+            }
+
+            // Simpan data ke m_teater_web
+            $websites = json_decode($this->request->getPost('hidden_web'), true);
+            if ($websites) {
+                foreach ($websites as $website) {
+                    $this->teaterWebModel->insert([
+                        'id_teater' => $idTeater,
+                        'judul_web' => $website['title'],
+                        'url_web' => $website['url']
+                    ]);
+                }
+            }
+
+            // Simpan data ke r_teater_sosmed
+            $accounts = json_decode($this->request->getPost('hidden_accounts'), true);
+            if ($accounts) {
+                foreach ($accounts as $account) {
+                    $this->teaterSosmedModel->insert([
+                        'id_teater' => $idTeater,
+                        'id_platform_sosmed' => $account['platformId'],
+                        'acc_teater' => $account['account']
+                    ]);
+                }
+            }
+
+            // Debugging Transaksi Database
+            if ($this->db->transStatus() === false) {
+                $dbError = $this->db->error();
+                error_log("Database Error: " . json_encode($dbError));
+                throw new \Exception("Transaksi database gagal. Error: " . json_encode($dbError));
+            }
+
+            $this->db->transCommit();
+
+            return $this->response->setJSON([
+                'status' => 'success',
+                'message' => 'Penampilan berhasil disimpan!',
+                'redirect' => base_url('Admin/listPenampilan')
+            ]);
+        } catch(\Exception $e) {
+            $this->db->transRollback();
+            error_log("Catch Error: " . $e->getMessage());
+            return $this->response->setJSON([
+                'status' => 'error',
+                'message' => 'Terjadi kesalahan pada server.',
+                'errors' => $e->getMessage()
+            ]);
+        }
+    }
+
+    // Update Penampilan 
+    public function updateAuditionAdmin($idTeater)
+    {
+        $db = \Config\Database::connect();
+        $db->transBegin();
+
+        try {
+            $userId = session()->get('id_user');
+            $user = $this->userModel->find($userId);
+            if (!$user) throw new \Exception('User tidak ditemukan.');
+
+            $existingTeater = $this->teaterModel->find($idTeater);
+            if (!$existingTeater) throw new \Exception('Teater tidak ditemukan.');
+
+            // Validasi
+            $validation = \Config\Services::validation();
+            $validation->setRules([
+                'judul' => 'required',
+                'poster' => 'permit_empty|max_size[poster,2048]|is_image[poster]|mime_in[poster,image/jpg,image/jpeg,image/png]',
+                'sinopsis' => 'required',
+                'penulis' => 'required',
+                'sutradara' => 'required',
+                'staff' => 'required',
+            ]);
+
+            if (!$validation->withRequest($this->request)->run()) {
+                return $this->response->setJSON([
+                    'status' => 'error',
+                    'message' => 'Validasi gagal',
+                    'errors' => $validation->getErrors()
+                ]);
+            }
+
+            // Upload poster (jika ada perubahan)
+            $poster = $this->request->getFile('poster');
+            $posterPath = $existingTeater['poster'];
+            if ($poster && $poster->isValid() && !$poster->hasMoved()) {
+                $posterPath = 'uploads/posters/' . $poster->getRandomName();
+                $poster->move(ROOTPATH . 'public/' . $posterPath);
+            }
+
+            // Update m_teater
+            $this->teaterModel->update($idTeater, [
+                'judul' => $this->request->getPost('judul'),
+                'poster' => $posterPath,
+                'sinopsis' => $this->request->getPost('sinopsis'),
+                'penulis' => $this->request->getPost('penulis'),
+                'sutradara' => $this->request->getPost('sutradara'),
+                'staff' => $this->request->getPost('staff'),
+                'dimodif_oleh' => $user['nama'],
+                'tgl_dimodif' => date('Y-m-d H:i:s'),
+                'url_pendaftaran' => $this->request->getPost('url_pendaftaran')
+            ]);
+
+            // Cari dan update penampilan
+            $penampilanRow = $this->penampilan->where('id_teater', $idTeater)->first();
+            if ($penampilanRow) {
+                $this->penampilan->update($penampilanRow['id_penampilan'], [
+                    'aktor' => $this->request->getPost('aktor'),
+                    'durasi' => $this->request->getPost('durasi'),
+                    'rating_umur' => $this->request->getPost('rating_umur')
+                ]);
+            }
+
+            // ✅ UPDATE seat_category & seat_pricing
+            $denah_seat = $this->request->getFile('denah_seat');
+            $denahSeatName = $penampilanRow['denah_seat'] ?? 'assets/images/seat1.jpg';
+            if ($denah_seat && $denah_seat->isValid() && !$denah_seat->hasMoved()) {
+                $denahSeatName = 'uploads/posters/' . $denah_seat->getRandomName();
+                $denah_seat->move(ROOTPATH . 'public/' . $denahSeatName);
+            }
+
+            // Cari kategori seat yang sudah ada
+            $existingSeatCategory = $this->kategoriSeatModel->where('id_penampilan', $penampilanRow['id_penampilan'])->first();
+            if ($existingSeatCategory) {
+                $this->kategoriSeatModel->update($existingSeatCategory['id_kategori_seat'], [
+                    'nama_kategori' => $this->request->getPost('nama_kategori') ?? 'Kategori Biasa',
+                    'denah_seat' => $denahSeatName
+                ]);
+
+                $this->seatPricingModel
+                    ->where('id_penampilan', $penampilanRow['id_penampilan'])
+                    ->where('id_kategori_seat', $existingSeatCategory['id_kategori_seat'])
+                    ->set([
+                        'harga' => $this->request->getPost('harga') ?? 0,
+                        'tipe_harga' => $this->request->getPost('tipe_harga')
+                    ])
+                    ->update();
+            }
+
+            // Update jadwal
+            $existingSchedules = $this->showScheduleModel->where('id_teater', $idTeater)->findAll();
+            $existingScheduleIds = array_column($existingSchedules, 'id_schedule');
+            $scheduleData = json_decode($this->request->getPost('hidden_schedule'), true);
+            $retainedIds = [];
+
+            foreach ($scheduleData ?? [] as $sch) {
+                $lokasi = [
+                    'tempat' => $sch['tempat'],
+                    'kota' => $sch['kota']
+                ];
+                $this->lokasiTeaterModel->insert($lokasi);
+                $idLokasi = $this->lokasiTeaterModel->insertID();
+
+                if (!empty($sch['id_schedule'])) {
+                    $this->showScheduleModel->update($sch['id_schedule'], [
+                        'tanggal' => $sch['tanggal'],
+                        'waktu_mulai' => $sch['waktu_mulai'],
+                        'waktu_selesai' => $sch['waktu_selesai'],
+                        'id_location' => $idLokasi,
+                        'id_teater' => $idTeater
+                    ]);
+                    $retainedIds[] = $sch['id_schedule'];
+                } else {
+                    $this->showScheduleModel->insert([
+                        'tanggal' => $sch['tanggal'],
+                        'waktu_mulai' => $sch['waktu_mulai'],
+                        'waktu_selesai' => $sch['waktu_selesai'],
+                        'id_location' => $idLokasi,
+                        'id_teater' => $idTeater
+                    ]);
+                }
+            }
+
+            // Hapus jadwal lama yang tidak dipertahankan
+            $schedulesToDelete = array_diff($existingScheduleIds, $retainedIds);
+            if (!empty($schedulesToDelete)) {
+                $this->showScheduleModel->whereIn('id_schedule', $schedulesToDelete)->delete();
+            }
+
+            // Update website
+            $this->teaterWebModel->where('id_teater', $idTeater)->delete();
+            $webData = json_decode($this->request->getPost('hidden_web'), true);
+            foreach ($webData ?? [] as $web) {
+                $this->teaterWebModel->insert([
+                    'id_teater' => $idTeater,
+                    'judul_web' => $web['title'],
+                    'url_web' => $web['url']
+                ]);
+            }
+
+            $db->transCommit();
+            return $this->response->setJSON([
+                'status' => 'success',
+                'message' => 'Data berhasil diperbarui',
+                'redirect' => base_url('Admin/listPenampilan')
+            ]);
+        } catch (\Exception $e) {
+            $db->transRollback();
+            return $this->response->setJSON([
+                'status' => 'error',
+                'message' => 'Kesalahan server.',
+                'debug' => $e->getMessage()
+            ]);
+        }
     }
 
     public function saveAuditionAktor()
@@ -1306,9 +1632,100 @@ class Admin extends BaseController
             ];
         }
 
+        $teaterPenampilan = $this->teaterModel->where('tipe_teater', 'penampilan')->findAll();
+
         return view('templates/headerAdmin', ['title' => 'List Penampilan Admin', 'user' => $user]) .
-            view('templates/bodyPenampilanAdmin', ['groupedSchedule' => $groupedSchedule, 'placeInfo' => $placeInfo, 'user' => $user]) .
+            view('templates/bodyPenampilanAdmin', ['groupedSchedule' => $groupedSchedule, 'placeInfo' => $placeInfo, 'user' => $user, 'teaterPenampilan' => $teaterPenampilan]) .
             view('templates/footerPenampilanAdmin');
+    }
+
+    public function getTeaterData(){
+        $id_teater = $this->request->getGet('id_teater'); // Ambil ID dari request
+
+        $teater = $this->teaterModel->find($id_teater); // Cari data berdasarkan ID
+
+        // Ambil data m_penampilan berdasarkan ID teater
+        $penampilanData = $this->penampilan->where('id_teater', $id_teater)->first();
+
+        //Ambil data m_show_schedule
+        $showScheduleData = $this->showScheduleModel->where('id_teater', $id_teater)->findAll();
+
+        //Ambil data m_lokasi_teater
+        $fullSchedule = [];
+        foreach ($showScheduleData as $schedule) {
+            $lokasi = $this->lokasiTeaterModel->find($schedule['id_location']);
+
+            $fullSchedule[] = [
+                'id_schedule' => $schedule['id_schedule'],
+                'tanggal' => $schedule['tanggal'],
+                'waktu_mulai' => $schedule['waktu_mulai'],
+                'waktu_selesai' => $schedule['waktu_selesai'],
+                'id_location' => $schedule['id_location'],
+                'kota' => $lokasi['kota'] ?? '',
+                'tempat' => $lokasi['tempat'] ?? ''
+            ];
+        }
+
+        $webData = $this->teaterWebModel->where('id_teater', $id_teater)->findAll();
+
+        
+
+        if ($teater) {
+            return $this->response->setJSON([
+                'status' => 'success',
+                'data' => [
+                    'teater' => $teater,
+                    'penampilan' => $penampilanData,
+                    'schedule' => $fullSchedule,
+                    'web' => $webData,
+                    // 'seat' => $kategoriSeat,
+                    // 'seat_pricing' => $seatPricing
+                ]
+            ]);
+        } else {
+            return $this->response->setJSON([
+                'status' => 'error',
+                'message' => 'Data tidak ditemukan!'
+            ]);
+        }
+    }
+
+    // Hapus Schedule untuk keperluan edit penampilan
+    public function deleteSchedule()
+    {
+        $id_schedule = $this->request->getGet('id_schedule');
+
+        if (!$id_schedule) {
+            return $this->response->setJSON([
+                'status' => 'error',
+                'message' => 'ID Schedule tidak ditemukan'
+            ]);
+        }
+
+        $deleted = $this->showScheduleModel->delete($id_schedule);
+
+        if ($deleted) {
+            return $this->response->setJSON([
+                'status' => 'success',
+                'message' => 'Jadwal berhasil dihapus'
+            ]);
+        } else {
+            return $this->response->setJSON([
+                'status' => 'error',
+                'message' => 'Gagal menghapus jadwal'
+            ]);
+        }
+    }
+
+    //Hapu Web untuk keperluan edit penampilan
+    public function deleteWeb()
+    {
+        $id = $this->request->getGet('id_teater_web');
+        $deleted = $this->teaterWebModel->delete($id);
+
+        return $this->response->setJSON([
+            'status' => $deleted ? 'success' : 'error'
+        ]);
     }
 
     public function audisi()
@@ -1321,8 +1738,6 @@ class Admin extends BaseController
             view('templates/bodyAudisiAdmin') .
             view('templates/footerAudisiAdmin');
     }
-
-
 
     // Fungsi helper untuk format sosial media
     private function formatSosmed($sosmedData)
@@ -1416,5 +1831,20 @@ class Admin extends BaseController
         } else {
             return $this->response->setJSON(['status' => 'error', 'message' => 'Gagal menyimpan alasan.']);
         }
+    }
+
+    public function profile() {
+        $userId = session()->get('id_user');
+        $user = $this->userModel->find($userId);
+
+        return  view('templates/headerAdmin', ['title' => 'List Penampilan Admin', 'user' => $user]) .
+                view('templates/profileUser', ['user' => $user]);
+    }
+
+    public function aboutUs() {
+        $userId = session()->get('id_user');
+        $user = $this->userModel->find($userId);
+        
+        return view('templates/aboutUsAdmin', ['user' => $user]);
     }
 }

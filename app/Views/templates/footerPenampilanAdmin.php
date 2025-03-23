@@ -63,7 +63,7 @@
     <script>
         const baseUrl = window.location.origin + "/CodeIgniter4/public";
 
-        let idTeater = null; // Simpan secara global
+        let idTeater = null; 
         let idPenampilan = null;
 
         document.addEventListener("DOMContentLoaded", function() {
@@ -78,8 +78,9 @@
                 e.preventDefault(); // Mencegah reload halaman
 
                 let formData = new FormData(this);
+                let actionUrl = form.getAttribute("action");
 
-                fetch("/CodeIgniter4/public/Admin/saveShow", {
+                fetch("/CodeIgniter4/public/Admin/saveAuditionAdmin", {
                         method: "POST",
                         body: formData
                     })
@@ -87,7 +88,7 @@
                     .then(data => {
                         console.log("Server Response:", data); // Debug hasil dari server
 
-                        if (data.success) {
+                        if (data.status === "success") {
                             alert(data.message); // Pesan sukses
                             if (data.redirect) {
                                 window.location.href = data.redirect; // Redirect ke halaman tujuan
@@ -106,6 +107,7 @@
             // Buka popup "Tambah Pertunjukan"
             addShowBtn.addEventListener("click", function() {
                 popupTitle.textContent = "Tambah Pertunjukan";
+                form.setAttribute("action", `<?= base_url('Admin/saveAuditionAdmin') ?>`);
                 form.reset(); // Bersihkan semua input
                 popup.style.display = "flex"; // Tampilkan popup
             });
@@ -294,32 +296,28 @@
             });
         });
 
-        function toggleLainnya(select) {
-            var lainnyaContainer = document.getElementById("lainnya-container");
-            var kotaInput = document.getElementById("kota-input");
-
-            if (select.value === "lainnya") {
-                lainnyaContainer.style.display = "block";
-                if (kotaInput) {
-                    kotaInput.required = true;
-                    kotaInput.focus();
-                }
+        document.getElementById("kota-select")?.addEventListener("change", function() {
+            const hiddenKota = document.getElementById("hidden-kota");
+            const lainnyaContainer = document.getElementById("lainnya-container");
+            const kotaInput = document.getElementById("kota-input");
+            
+            if (this.value === "lainnya") {
+                lainnyaContainer.style.display = "block"; 
+                kotaInput.required = true; 
+                kotaInput.focus();
+                hiddenKota.value = kotaInput.value;
             } else {
-                lainnyaContainer.style.display = "none";
-
-                if (kotaInput) {
-                    kotaInput.required = false;
-                    kotaInput.value = ""; // Reset input kota
-                }
+                lainnyaContainer.style.display = "none"; 
+                kotaInput.required = false;
+                kotaInput.value = ""; 
+                hiddenKota.value = this.value; 
             }
-        }
+        });
 
-        function KotaValue(input) {
-            var hiddenKotaInput = document.getElementById("hidden-kota");
-            if (hiddenKotaInput) {
-                hiddenKotaInput.value = input.value; // Simpan nilai input kota ke hidden input
-            }
-        }
+        // Update hidden-kota jika user mengetik di input "Lainnya"
+        document.getElementById("kota-input")?.addEventListener("input", function() {
+            document.getElementById("hidden-kota").value = this.value;
+        });
 
         document.getElementById('addSchedule').addEventListener('click', function() {
             let tanggal = document.getElementById('tanggal').value;
@@ -415,9 +413,9 @@
             let scheduleItem = document.createElement('div');
             scheduleItem.classList.add('draft-schedule-item');
             scheduleItem.innerHTML = `
-            <p><strong>${tanggal}, ${waktuMulai} - ${waktuSelesai}</strong></p>
+            <p><strong>${newSchedule.tanggal}, ${newSchedule.waktu_mulai} - ${newSchedule.waktu_selesai}</strong></p>
             <p>${draftText}</p>
-            <p>${kota} - ${tempat}</p>
+            <p>${newSchedule.kota} - ${newSchedule.tempat}</p>
             <button type="button" class="delete-draft-btn delete-schedule-btn">x</button>
         `;
 
@@ -450,8 +448,7 @@
         document.getElementById("addSchedule").addEventListener("click", function() {
             document.querySelectorAll(".schedule-show input, .schedule-show select, .schedule-show textarea").forEach(el => {
                 if (el.name) {
-                    el.dataset.tempName = el.name; // Simpan name agar bisa dikembalikan jika dibutuhkan
-                    el.removeAttribute("name"); // Hapus name agar tidak dikirim ke server
+                    el.dataset.tempName = el.name; 
                 }
             });
         });
@@ -460,9 +457,10 @@
         document.getElementById("submitBtn").addEventListener("click", function() {
             document.querySelectorAll(".schedule-show input, .schedule-show select, .schedule-show textarea").forEach(el => {
                 if (el.dataset.tempName) {
-                    el.name = el.dataset.tempName;
+                    el.name = el.dataset.tempName; 
                 }
             });
+            
         });
 
         document.addEventListener('DOMContentLoaded', function() {
@@ -701,54 +699,167 @@
         });
 
         // Open popup for "Edit Pertunjukan"
-        document.getElementById('editBtn1').addEventListener('click', () => {
-            console.log("Tombol Edit ditekan");
-            const popupTitle = document.getElementById('popupTitle'); // Pastikan ID ini ada di HTML
-            const popup = document.getElementById('showPopup'); // Pastikan ID ini ada di HTML
+        document.addEventListener('DOMContentLoaded', function () {
+            document.addEventListener('click', function (event) {
+                if (event.target.classList.contains('editBtn')) {
+                    console.log("Tombol Edit ditekan");
 
-            if (!popup) {
-                console.error("Elemen popup tidak ditemukan di HTML!");
-                return;
-            }
+                    const teaterId = event.target.getAttribute('data-id');
+                    const popup = document.getElementById('editPopup');
+                    const popupTitle = document.getElementById('popupTitle');
+                    const form = document.getElementById('editForm');
+                    const submitBtn = document.getElementById('submitBtn');
 
-            popupTitle.textContent = 'Edit Pertunjukan';
+                    if (!popup) {
+                        console.error("Elemen popup tidak ditemukan!");
+                        return;
+                    }
 
-            // Mengisi nilai field yang sesuai dengan HTML
-            document.getElementById('judul').value = 'Jaya Wijaya Show';
+                    popupTitle.textContent = 'Edit Pertunjukan';
+                    submitBtn.textContent = 'Update';
+                    form.setAttribute('action', `<?= base_url('Admin/updateAuditionAdmin') ?>/${teaterId}`);
+                    document.getElementById('id_teater').value = teaterId;
 
-            // Untuk input file, kita tidak bisa mengisi value secara langsung, jadi diabaikan
-            // document.getElementById('poster').value = 'https://via.placeholder.com/150';
+                    // Kosongkan semua draft terlebih dahulu
+                    document.getElementById('draft-schedule').innerHTML = '';
+                    document.getElementById('draft-web').innerHTML = '';
+                    document.querySelector('input[name="hidden_schedule"]').value = '';
+                    document.querySelector('input[name="hidden_web"]').value = '';
 
-            document.getElementById('sinopsis').value = 'Ini adalah sinopsis pertunjukan.';
-            document.getElementById('tanggal').value = '2024-09-12'; // Sesuaikan dengan input date
-            document.getElementById('waktu').value = '15:00'; // Sesuaikan dengan input time
-            document.getElementById('kota').value = 'Jakarta';
-            document.getElementById('tempat').value = 'Aula Teater Garuda Krisna, Jakarta';
-            document.getElementById('harga').value = 75000;
-            document.getElementById('penulis').value = 'Jaya Wijaya';
-            document.getElementById('sutradara').value = 'Willy Santoso';
-            document.getElementById('staff').value = 'Toni Jojoni';
-            document.getElementById('aktor').value = 'Jaya Wijaya, Lilith Purnawarman, Toni Jojoni';
-            document.getElementById('durasi').value = 120;
-            document.getElementById('rating_umur').value = '17+';
+                    fetch(`<?= base_url('Admin/getTeaterData'); ?>?id_teater=${teaterId}`)
+                        .then(response => response.json())
+                        .then(data => {
+                            if (data.status === 'success') {
+                                const teater = data.data.teater;
+                                const penampilan = data.data.penampilan;
+                                const schedules = data.data.schedule;
+                                const webs = data.data.web;
 
-            // Sosial Media
-            document.getElementById('platform_name').value = '5'; // TikTok
-            document.getElementById('acc_name').value = '@JayaWijayaShow';
+                                // Isikan data teater
+                                document.getElementById('judul').value = teater.judul;
+                                document.getElementById('sinopsis').value = teater.sinopsis;
+                                document.getElementById('sutradara').value = teater.sutradara;
+                                document.getElementById('penulis').value = teater.penulis;
+                                document.getElementById('staff').value = teater.staff;
+                                document.getElementById('url_pendaftaran').value = teater.url_pendaftaran;
 
-            // Website
-            document.getElementById('judul_web').value = 'Jaya Wijaya Official';
-            document.getElementById('url_web').value = 'https://www.jayawijaya.com';
+                                // Isikan data penampilan
+                                document.getElementById('aktor').value = penampilan.aktor;
+                                document.getElementById('durasi').value = penampilan.durasi;
+                                document.getElementById('rating_umur').value = penampilan.rating_umur;
 
-            // Menampilkan popup
-            popup.style.display = 'flex';
-            console.log("Popup ditampilkan");
+                                // Tampilkan semua schedule sebagai card
+                                const draftSchedule = document.getElementById('draft-schedule');
+                                const hiddenScheduleInput = document.querySelector('input[name="hidden_schedule"]');
+                                let scheduleList = [];
+
+                                schedules.forEach(schedule => {
+                                    const card = document.createElement('div');
+                                    card.classList.add('draft-schedule-item');
+                                    card.innerHTML = `
+                                        <p><strong>${schedule.tanggal}, ${schedule.waktu_mulai} - ${schedule.waktu_selesai}</strong></p>
+                                        <p>${schedule.kota} - ${schedule.tempat}</p>
+                                        <button type="button" class="delete-draft-btn delete-schedule-btn" data-id="${schedule.id_schedule}">x</button>
+                                    `;
+                                    draftSchedule.appendChild(card);
+
+                                    // Simpan dalam array untuk hidden input
+                                    scheduleList.push({
+                                        id_schedule: schedule.id_schedule,
+                                        tanggal: schedule.tanggal,
+                                        waktu_mulai: schedule.waktu_mulai,
+                                        waktu_selesai: schedule.waktu_selesai,
+                                        kota: schedule.kota,   
+                                        tempat: schedule.tempat
+                                    });
+
+                                    card.querySelector('.delete-schedule-btn').addEventListener('click', function () {
+                                        const idToDelete = this.getAttribute('data-id');
+                                        fetch(`<?= base_url('Admin/deleteSchedule') ?>?id_schedule=${idToDelete}`, {
+                                            method: 'DELETE'
+                                        }).then(res => res.json()).then(result => {
+                                            if (result.status === 'success') {
+                                                card.remove();
+                                                scheduleList = scheduleList.filter(item => item.id_schedule != idToDelete);
+                                                hiddenScheduleInput.value = JSON.stringify(scheduleList);
+                                            }
+                                        });
+                                    });
+                                });
+                                hiddenScheduleInput.value = JSON.stringify(scheduleList);
+
+                                // Tampilkan website
+                                const draftWeb = document.getElementById('draft-web');
+                                const hiddenWeb = document.querySelector('input[name="hidden_web"]');
+                                let webList = [];
+
+                                webs.forEach(web => {
+                                    const webItem = document.createElement('div');
+                                    webItem.classList.add('draft-item');
+                                    webItem.setAttribute('data-title', web.judul_web);
+                                    webItem.setAttribute('data-url', web.url_web);
+                                    webItem.innerHTML = `
+                                        <span>${web.judul_web}</span> - 
+                                        <span>${web.url_web}</span>
+                                        <button type="button" class="delete-draft-btn delete-web-btn" data-id="${web.id_teater_web}">x</button>
+                                    `;
+                                    draftWeb.appendChild(webItem);
+
+                                    webList.push({
+                                        title: web.judul_web,
+                                        url: web.url_web
+                                    });
+
+                                    webItem.querySelector('.delete-web-btn').addEventListener('click', function () {
+                                        const idToDelete = this.getAttribute('data-id');
+                                        fetch(`<?= base_url('Admin/deleteWeb') ?>?id_teater_web=${idToDelete}`, {
+                                            method: 'DELETE'
+                                        })
+                                            .then(res => res.json())
+                                            .then(result => {
+                                                if (result.status === 'success') {
+                                                    webItem.remove();
+                                                    webList = webList.filter(item => item.title !== web.judul_web);
+                                                    hiddenWeb.value = JSON.stringify(webList);
+                                                }
+                                            });
+                                    });
+                                });
+                                hiddenWeb.value = JSON.stringify(webList);
+
+                                
+
+                                popup.style.display = 'flex';
+                            } else {
+                                alert("Gagal mengambil data.");
+                            }
+                        })
+                        .catch(err => {
+                            console.error("Error fetch:", err);
+                        });
+                }
+            });
+
+            // Tombol batal -> reset semua
+            document.getElementById('cancelBtn').addEventListener('click', function () {
+                const popup = document.getElementById('editPopup');
+                popup.style.display = 'none';
+
+                const form = document.getElementById('editForm');
+                form.reset();
+
+                form.setAttribute('action', `<?= base_url('Admin/saveAuditionAdmin') ?>`);
+                document.getElementById('submitBtn').textContent = 'Simpan';
+
+                // Bersihkan draft dan hidden inputs
+                document.getElementById('draft-schedule').innerHTML = '';
+                document.querySelector('input[name="hidden_schedule"]').value = '';
+                document.getElementById('draft-web').innerHTML = '';
+                document.querySelector('input[name="hidden_web"]').value = '';
+                document.getElementById('id_teater').value = '';
+            });
         });
 
-        // Close popup
-        cancelBtn.addEventListener('click', () => {
-            popup.style.display = 'none';
-        });
     </script>
 
     <script>

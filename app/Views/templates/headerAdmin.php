@@ -63,7 +63,7 @@
                             <a href="<?= base_url('Admin/approveMitra') ?>">Mitra Teater</a>
                         </li>
                         <li>
-                            <a href="<?= base_url('aboutUs.html') ?>">Tentang Kami</a>
+                            <a href="<?= base_url('Admin/aboutUs') ?>">Tentang Kami</a>
                         </li>
 
                         <!-- Start Notification -->
@@ -214,7 +214,7 @@
                                         </div>
                                     </div>
                                     <div class="card-body p-0">
-                                        <a href="apps-contact.html" class="grid-nav-item">
+                                        <a href="<?= base_url('Admin/profile') ?>" class="grid-nav-item">
                                             <div class="grid-nav-icon"><i class="fa-regular fa-address-card"></i></div>
                                             <span class="grid-nav-content">Profile</span>
                                         </a>

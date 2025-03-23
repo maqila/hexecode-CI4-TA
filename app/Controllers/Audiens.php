@@ -636,4 +636,12 @@ class Audiens extends BaseController
             view('templates/bodyDetailAudisiStaff', ['groupedSchedule' => $groupedSchedule]) .
             view('templates/footerListPenampilan', ['needsDropdown' => true]);
     }
+
+    public function profile() {
+        $userId = session()->get('id_user');
+        $user = $this->userModel->find($userId);
+
+        return  view('templates/headerAudiens', ['title' => 'Detail Penampilan Teater', 'user' => $user]) .
+                view('templates/profileUser', ['user' => $user]);
+    }
 }
