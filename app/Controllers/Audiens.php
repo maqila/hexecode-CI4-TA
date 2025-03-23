@@ -644,4 +644,39 @@ class Audiens extends BaseController
         return  view('templates/headerAudiens', ['title' => 'Detail Penampilan Teater', 'user' => $user]) .
                 view('templates/profileUser', ['user' => $user]);
     }
+
+    public function uploadBuktiPembayaran()
+    {
+        $userId = session()->get('id_user');
+
+        // Cari id_audiens berdasarkan id_user
+        $audiens = $this->audiensModel->where('id_user', $userId)->first();
+        if (!$audiens) {
+            return redirect()->back()->with('error', 'Data audiens tidak ditemukan.');
+        }
+
+        $idAudiens = $audiens['id_audiens'];
+        $idTeater = $this->request->getPost('id_teater');
+        $file = $this->request->getFile('bukti');
+
+        if (!$file->isValid()) {
+            return redirect()->back()->with('error', 'File tidak valid.');
+        }
+
+        $fileName = $file->getRandomName();
+        $file->move(ROOTPATH . 'public/uploads/bukti/', $fileName);
+
+        $buktiData = [
+            'id_audiens' => $idAudiens,
+            'id_teater' => $idTeater,
+            'tgl_upload' => date('Y-m-d H:i:s'),
+            'is_valid' => null,
+            'tgl_validated' => date('Y-m-d H:i:s'),
+            // 'file_path' => 'uploads/bukti/' . $fileName,
+        ];
+
+        $this->buktiPembayaranModel->save($buktiData);
+
+        return redirect()->to(base_url('Audiens/homepageAudiens'))->with('success', 'Bukti pembayaran berhasil diupload.');
+    }
 }
