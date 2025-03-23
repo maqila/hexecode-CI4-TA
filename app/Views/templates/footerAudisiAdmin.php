@@ -106,6 +106,7 @@
         });
     </script>
 
+    <!-- PopUp Aktor -->
     <script>
         // Buka popup "Tambah Audisi Aktor"
         const baseUrl = window.location.origin + "/CodeIgniter4/public";
@@ -165,11 +166,8 @@
                 idAudisi = null;
                 popup.style.display = "none"; // Sembunyikan popup
             });
-        });
 
-        console.log("Menjalankan script...");
-
-        document.addEventListener('DOMContentLoaded', function() {
+            // harga
             let tipeHarga = document.getElementById('tipe_harga');
             let nominalHarga = document.getElementById('nominal-harga');
 
@@ -182,34 +180,114 @@
                     document.getElementById('harga').value = null; // Kosongkan input harga
                 }
             });
+
+            // Fetch daftar mitra yang sudah di-approve
+            fetch('<?= base_url('teater/getApprovedMitra') ?>')
+                .then(response => response.json())
+                .then(data => {
+                    console.log('Data mitra aktor diterima:', data); // Debugging
+
+                    let selectMitra = document.getElementById('mitra_teater_aktor');
+                    selectMitra.innerHTML = '<option value="">Pilih Mitra Teater</option>'; // Reset opsi
+
+                    data.forEach(mitra => {
+                        let option = document.createElement('option');
+                        option.value = mitra.id_mitra;
+                        option.textContent = mitra.nama;
+                        selectMitra.appendChild(option);
+                    });
+                })
+                .catch(error => console.error('Error fetching mitra:', error));
+
+            //web    
+            const addWebButton = document.getElementById('add-web-btn');
+            const draftContainer = document.getElementById('draft-web');
+            const hiddenInput = document.querySelector('input[name="hidden_web"]');
+
+            function updateHiddenInput() {
+                const draftItems = draftContainer.querySelectorAll('.draft-item');
+                const data = [];
+
+                draftItems.forEach(item => {
+                    const title = item.getAttribute('data-title');
+                    const url = item.getAttribute('data-url');
+                    data.push({
+                        title,
+                        url
+                    });
+                });
+
+                hiddenInput.value = JSON.stringify(data);
+                console.log('Updated Hidden Input:', hiddenInput.value);
+            }
+
+            if (addWebButton) {
+                addWebButton.addEventListener('click', function() {
+                    const titleInput = document.querySelector('input[name="judul_web[]"]');
+                    const urlInput = document.querySelector('input[name="url_web[]"]');
+
+                    const title = titleInput.value.trim();
+                    const url = urlInput.value.trim();
+
+                    // Validasi: Jika salah satu diisi, keduanya harus diisi
+                    if ((title !== '' && url === '') || (title === '' && url !== '')) {
+                        alert('Harap isi kedua kolom (Judul Web dan URL) atau biarkan keduanya kosong.');
+                        return;
+                    }
+
+                    // Jika keduanya kosong, tidak menambahkan draft
+                    if (title === '' && url === '') return;
+
+                    // Tambahkan item draft ke container draft
+                    const draftItem = document.createElement('div');
+                    draftItem.classList.add('draft-item');
+                    draftItem.setAttribute('data-title', title);
+                    draftItem.setAttribute('data-url', url);
+                    draftItem.innerHTML = `
+                    <span>${title}</span> - 
+                    <span>${url}</span>
+                    <button type="button" class="delete-draft-btn delete-web-btn">x</button>
+                `;
+
+                    draftContainer.appendChild(draftItem);
+
+                    // Perbarui hidden input
+                    updateHiddenInput();
+
+                    // Kosongkan input setelah data ditambahkan
+                    titleInput.value = '';
+                    urlInput.value = '';
+
+                    // Tambahkan listener untuk tombol delete
+                    draftItem.querySelector('.delete-draft-btn').addEventListener('click', function() {
+                        draftItem.remove();
+                        updateHiddenInput(); // Perbarui hidden input setelah menghapus draft
+                    });
+                });
+            }
         });
 
-        function toggleLainnya(select) {
+        document.getElementById("kota-select")?.addEventListener("change", function() {
+            const hiddenKota = document.getElementById("hidden-kota");
             const lainnyaContainer = document.getElementById("lainnya-container");
             const kotaInput = document.getElementById("kota-input");
 
-            if (select.value === "lainnya") {
-                lainnyaContainer.style.display = "block";
-                kotaInput.required = true;
-                kotaInput.focus();
+            if (this.value === "lainnya") {
+                lainnyaContainer.style.display = "block"; // Tampilkan input tambahan
+                kotaInput.required = true; // Wajib diisi
+                kotaInput.focus(); // Otomatis fokus ke input
+                hiddenKota.value = kotaInput.value; // Pastikan nilai hidden-kota selalu diperbarui
             } else {
-                lainnyaContainer.style.display = "none";
-                kotaInput.required = false;
-                kotaInput.value = "";
+                lainnyaContainer.style.display = "none"; // Sembunyikan input tambahan
+                kotaInput.required = false; // Tidak wajib diisi
+                kotaInput.value = ""; // Reset input teks
+                hiddenKota.value = this.value; // Ambil nilai dari select
             }
-        }
-
-        document.getElementById("kota-select")?.addEventListener("change", function() {
-            toggleLainnya(this);
         });
 
-        /** ✅ FIX: updateKotaValue() */
-        function updateKotaValue(input) {
-            document.getElementById("hidden-kota").value = input.value;
-        }
-
+        // Update hidden-kota jika user mengetik di input "Lainnya"
         document.getElementById("kota-input")?.addEventListener("input", function() {
-            updateKotaValue(this);
+            document.getElementById("hidden-kota").value = this.value;
         });
 
         //schedule
@@ -286,151 +364,6 @@
 
                 hiddenInput.value = JSON.stringify(updatedSchedules);
                 console.log("Updated Hidden Input Value (JSON):", hiddenInput.value);
-            });
-        });
-
-        //mitra
-        document.addEventListener('DOMContentLoaded', function() {
-            // Fetch daftar mitra yang sudah di-approve
-            fetch('<?= base_url('teater/getApprovedMitra') ?>')
-                .then(response => response.json())
-                .then(data => {
-                    console.log('Data mitra aktor diterima:', data); // Debugging
-
-                    let selectMitra = document.getElementById('mitra_teater_aktor');
-                    selectMitra.innerHTML = '<option value="">Pilih Mitra Teater</option>'; // Reset opsi
-
-                    data.forEach(mitra => {
-                        let option = document.createElement('option');
-                        option.value = mitra.id_mitra;
-                        option.textContent = mitra.nama;
-                        selectMitra.appendChild(option);
-                    });
-                })
-                .catch(error => console.error('Error fetching mitra:', error));
-        });
-
-        //web
-        document.addEventListener('DOMContentLoaded', function() {
-            const addWebButton = document.getElementById('add-web-btn');
-            const draftContainer = document.getElementById('draft-web');
-            const hiddenInput = document.querySelector('input[name="hidden_web"]');
-
-            function updateHiddenInput() {
-                const draftItems = draftContainer.querySelectorAll('.draft-item');
-                const data = [];
-
-                draftItems.forEach(item => {
-                    const title = item.getAttribute('data-title');
-                    const url = item.getAttribute('data-url');
-                    data.push({
-                        title,
-                        url
-                    });
-                });
-
-                hiddenInput.value = JSON.stringify(data);
-                console.log('Updated Hidden Input:', hiddenInput.value);
-            }
-
-            if (addWebButton) {
-                addWebButton.addEventListener('click', function() {
-                    const titleInput = document.querySelector('input[name="judul_web[]"]');
-                    const urlInput = document.querySelector('input[name="url_web[]"]');
-
-                    const title = titleInput.value.trim();
-                    const url = urlInput.value.trim();
-
-                    // Validasi: Jika salah satu diisi, keduanya harus diisi
-                    if ((title !== '' && url === '') || (title === '' && url !== '')) {
-                        alert('Harap isi kedua kolom (Judul Web dan URL) atau biarkan keduanya kosong.');
-                        return;
-                    }
-
-                    // Jika keduanya kosong, tidak menambahkan draft
-                    if (title === '' && url === '') return;
-
-                    // Tambahkan item draft ke container draft
-                    const draftItem = document.createElement('div');
-                    draftItem.classList.add('draft-item');
-                    draftItem.setAttribute('data-title', title);
-                    draftItem.setAttribute('data-url', url);
-                    draftItem.innerHTML = `
-                    <span>${title}</span> - 
-                    <span>${url}</span>
-                    <button type="button" class="delete-draft-btn delete-web-btn">x</button>
-                `;
-
-                    draftContainer.appendChild(draftItem);
-
-                    // Perbarui hidden input
-                    updateHiddenInput();
-
-                    // Kosongkan input setelah data ditambahkan
-                    titleInput.value = '';
-                    urlInput.value = '';
-
-                    // Tambahkan listener untuk tombol delete
-                    draftItem.querySelector('.delete-draft-btn').addEventListener('click', function() {
-                        draftItem.remove();
-                        updateHiddenInput(); // Perbarui hidden input setelah menghapus draft
-                    });
-                });
-            }
-        });
-
-        //staff
-        document.addEventListener("DOMContentLoaded", function() {
-            const popup = document.getElementById("auditionPopupStaff"); // ID Popup
-            const popupTitle = document.getElementById("popupTitleStaff"); // Judul Popup
-            const form = document.getElementById("auditionFormStaff"); // Form di dalam popup
-            const addShowBtn = document.getElementById("addAuditionStaffBtn"); // Tombol untuk membuka popup
-            const cancelBtn = document.getElementById("cancelBtnStaff"); // Tombol batal
-
-            // Fungsi untuk mengirim form via AJAX dan mendapatkan id_teater
-            form.addEventListener("submit", function(e) {
-                e.preventDefault(); // Mencegah reload halaman
-
-                let formData = new FormData(this);
-
-                fetch("/CodeIgniter4/public/Admin/saveAuditionStaff", {
-                        method: "POST",
-                        body: formData
-                    })
-                    .then(response => response.json())
-                    .then(data => {
-                        console.log("Server Response:", data); // Debug hasil dari server
-
-                        if (data.success) {
-                            alert(data.message); // Pesan sukses
-                            if (data.redirect) {
-                                window.location.href = data.redirect; // Redirect ke halaman tujuan
-                            }
-                        } else {
-                            alert("Gagal menyimpan pertunjukan.");
-                            console.error(data.errors || "Tidak ada pesan error dari server."); // Hanya tampilkan error jika ada
-                        }
-                    })
-                    .catch(error => {
-                        console.error("Error:", error);
-                        alert("Terjadi kesalahan pada server.");
-                    });
-            });
-
-            // Buka popup "Tambah Audisi Staff"
-            document.getElementById("addAuditionStaffBtn").addEventListener("click", () => {
-                popupTitle.textContent = "Tambah Audisi Staff";
-                form.reset();
-                document.getElementById("id_kategori").value = "2"; // Pastikan kategori terisi
-                popup.style.display = "flex";
-            });
-
-            // Tombol "Batal" untuk menutup popup dan mereset ID Teater
-            cancelBtnStaff.addEventListener("click", function() {
-                form.reset(); // Reset semua input dalam form
-                idTeater = null; // Hapus nilai ID Teater
-                idAudisi = null;
-                popup.style.display = "none"; // Sembunyikan popup
             });
         });
 
@@ -515,67 +448,409 @@
             }
         });
 
+        document.getElementById("add-account-btn")?.addEventListener("click", function() {
+            const platformSelect = document.querySelector('select[name="id_platform_sosmed[]"]');
+            const accInput = document.querySelector('input[name="acc_name[]"]');
+            const draftContainer = document.getElementById("draft-accounts");
+            const hiddenInput = document.querySelector('input[name="hidden_accounts"]');
 
-        console.log("Script telah berjalan dengan baik.");
+            const platformId = platformSelect?.value;
+            const platformName = platformSelect?.options[platformSelect.selectedIndex]?.textContent;
+            const accName = accInput?.value.trim();
 
-        // Edit Audisi berdasarkan kategori
-        // document.querySelectorAll(".editBtnStaff").forEach((btn) => {
-        //     btn.addEventListener("click", () => {
-        //         const category = document.getElementById('id_kategori'); // Ambil kategori dari data tombol
+            // Validasi
+            if (!platformId || !accName) {
+                alert("Silakan pilih platform dan isi nama akun.");
+                return;
+            }
 
-        //         if (category = 1) {
-        //             popupTitleAktor.textContent = "Edit Audisi Aktor";
+            let data = hiddenInput.value ? JSON.parse(hiddenInput.value) : [];
 
-        //             //Set nilai form Aktor (dummy data)
-        //             document.getElementById('judul').value = 'Perahu Kertas';
-        //             document.getElementById('sinopsis').value = 'Ini adalah sinopsis audisi.';
-        //             document.getElementById('karakter_audisi').value = 'Usagi (The Rabbit)';
-        //             document.getElementById('deskripsi_karakter').value = 'Bertampang polos, namun memiliki niat tersembunyi kepada Arisu.';
-        //             document.getElementById('syarat').value = 'Perempuan berusia 12 - 16 tahun dan konsisten terhadap perannya.';
-        //             document.getElementById('syarat_dokumen').value = '-';
-        //             document.getElementById('tanggal').value = '2024-09-12';
-        //             document.getElementById('waktu').value = '15:00';
-        //             document.getElementById('kota').value = 'Tangerang';
-        //             document.getElementById('tempat').value = 'Aula Teater Garuda Krisna, Jakarta';
-        //             document.getElementById('harga').value = '';
-        //             document.getElementById('gaji').value = 500000;
-        //             document.getElementById('sutradara').value = 'Willy Santoso';
-        //             document.getElementById('penulis').value = 'Windy Panduwara';
-        //             document.getElementById('staff').value = 'Bagong Puripurna, Lulu Lunita, Cepri Tagor, Linda Putu';
-        //             document.getElementById('komitmen').value = 'Tidak boleh telat, bertahan hingga hari terakhir penayangan.';
-        //             document.getElementById('platform_name').value = 'Instagram';
-        //             document.getElementById('acc_name').value = '@eslilincilacapproduction';
-        //             document.getElementById('judul_web').value = 'Komunitas Teater Official';
-        //             document.getElementById('url_web').value = 'https://www.nsi.com';
+            // Cek duplikat berdasarkan kombinasi platform + akun
+            const isDuplicate = data.some(item => item.platformId === platformId && item.account === accName);
+            if (isDuplicate) {
+                alert("Sosial media ini sudah ditambahkan.");
+                return;
+            }
 
-        //             popupAktor.style.display = "flex";
-        //         } else if (category = 2) {
-        //             popupTitleStaff.textContent = "Edit Audisi Staff";
+            // Buat elemen draft baru
+            const draftItem = document.createElement("div");
+            draftItem.classList.add("draft-item");
+            draftItem.innerHTML = `
+        <span>${platformName}</span> - 
+        <span>${accName}</span>
+        <button type="button" class="delete-draft-btn">x</button>
+    `;
 
-        //             // Set nilai form Staff (dummy data)
-        //             document.getElementById('judul').value = 'Perahu Kertas';
-        //             document.getElementById('sinopsis').value = 'Ini adalah sinopsis audisi.';
-        //             document.getElementById('jenis_staff').value = 'Tata Lampu';
-        //             document.getElementById('jobdesc_staff').value = 'Mengatur lightning';
-        //             document.getElementById('syarat').value = 'Perempuan berusia 12 - 16 tahun dan konsisten terhadap perannya.';
-        //             document.getElementById('syarat_dokumen').value = '-';
-        //             document.getElementById('waktu').value = '2024-09-12T15:00';
-        //             document.getElementById('tempat').value = 'Aula Teater Garuda Krisna, Jakarta';
-        //             document.getElementById('harga').value = '';
-        //             document.getElementById('gaji').value = 500000;
-        //             document.getElementById('sutradara').value = 'Willy Santoso';
-        //             document.getElementById('penulis').value = 'Windy Panduwara';
-        //             document.getElementById('staff').value = 'Bagong Puripurna, Lulu Lunita, Cepri Tagor, Linda Putu';
-        //             document.getElementById('komitmen').value = 'Tidak boleh telat, bertahan hingga hari terakhir penayangan.';
-        //             document.getElementById('platform_name').value = 'Instagram';
-        //             document.getElementById('acc_name').value = '@eslilincilacapproduction';
-        //             document.getElementById('judul_web').value = 'Komunitas Teater Official';
-        //             document.getElementById('url_web').value = 'https://www.nsi.com';
+            // Event untuk menghapus item
+            draftItem.querySelector(".delete-draft-btn").addEventListener("click", function() {
+                draftItem.remove();
+                data = data.filter(item => !(item.platformId === platformId && item.account === accName));
+                hiddenInput.value = JSON.stringify(data);
+            });
 
-        //             popupStaff.style.display = "flex";
-        //         }
-        //     });
-        // });
+            // Tambahkan ke draft container
+            draftContainer.appendChild(draftItem);
+
+            // Tambahkan ke hidden input
+            data.push({
+                platformId,
+                platformName,
+                account: accName
+            });
+            hiddenInput.value = JSON.stringify(data);
+
+            // Kosongkan input
+            platformSelect.selectedIndex = 0;
+            accInput.value = "";
+        });
+
+        // console.log("Script telah berjalan dengan baik.");
+    </script>
+
+    <!-- PopUp Staff -->
+    <script>
+        document.addEventListener("DOMContentLoaded", function() {
+            const baseUrl = window.location.origin + "/CodeIgniter4/public";
+
+            let idTeaterStaff = null;
+            let idAudisiStaff = null;
+
+            const popup = document.getElementById("auditionPopupStaff");
+            const popupTitle = document.getElementById("popupTitleStaff");
+            const form = document.getElementById("auditionFormStaff");
+            const cancelBtn = document.getElementById("cancelBtnStaff");
+
+            // Submit form audisi staff
+            form.addEventListener("submit", function(e) {
+                e.preventDefault();
+
+                const formData = new FormData(this);
+                fetch(`${baseUrl}/Admin/saveAuditionStaff`, {
+                        method: "POST",
+                        body: formData
+                    })
+                    .then(response => response.json())
+                    .then(data => {
+                        console.log("Server Response:", data);
+                        if (data.status === "success") {
+                            alert(data.message);
+                            if (data.redirect) {
+                                window.location.href = data.redirect;
+                            }
+                        } else {
+                            alert("Gagal menyimpan audisi.");
+                            console.error(data.errors || "Tidak ada pesan error dari server.");
+                        }
+                    })
+                    .catch(error => {
+                        console.error("Error:", error);
+                        alert("Terjadi kesalahan pada server.");
+                    });
+            });
+
+            // Buka popup audisi staff
+            document.getElementById("addAuditionStaffBtn")?.addEventListener("click", () => {
+                popupTitle.textContent = "Tambah Audisi Staff";
+                form.reset();
+                document.getElementById("id_kategori").value = "2";
+                popup.style.display = "flex";
+            });
+
+            // Tombol batal
+            cancelBtn.addEventListener("click", function() {
+                form.reset();
+                idTeaterStaff = null;
+                idAudisiStaff = null;
+                popup.style.display = "none";
+            });
+
+            // Fetch daftar mitra yang sudah di - approve
+            fetch('<?= base_url('teater/getApprovedMitra') ?>')
+                .then(response => response.json())
+                .then(data => {
+                    console.log('Data mitra staff diterima:', data); // Debugging
+
+                    let selectMitra = document.getElementById('mitra_teater_staff');
+                    selectMitra.innerHTML = '<option value="">Pilih Mitra Teater</option>'; // Reset opsi
+
+                    data.forEach(mitra => {
+                        let option = document.createElement('option');
+                        option.value = mitra.id_mitra;
+                        option.textContent = mitra.nama;
+                        selectMitra.appendChild(option);
+                    });
+                })
+                .catch(error => console.error('Error fetching mitra:', error));
+
+            // Tipe Harga
+            const tipeHarga = document.getElementById("tipe_harga_staff");
+            const nominalHarga = document.getElementById("nominal-harga-staff");
+            const hargaInput = document.getElementById("harga_staff");
+
+            tipeHarga?.addEventListener("change", function() {
+                if (this.value === "Bayar") {
+                    nominalHarga.style.display = "block";
+                } else {
+                    nominalHarga.style.display = "none";
+                    hargaInput.value = null;
+                }
+            });
+
+            // Kota lainnya
+            const kotaSelect = document.getElementById("kota-select-staff");
+            const kotaInput = document.getElementById("kota-input-staff");
+            const hiddenKota = document.getElementById("hidden-kota-staff");
+
+            kotaSelect?.addEventListener("change", function() {
+                if (this.value === "lainnya") {
+                    document.getElementById("lainnya-container-staff").style.display = "block";
+                    kotaInput.required = true;
+                    kotaInput.focus();
+                    hiddenKota.value = kotaInput.value;
+                } else {
+                    document.getElementById("lainnya-container-staff").style.display = "none";
+                    kotaInput.required = false;
+                    kotaInput.value = "";
+                    hiddenKota.value = this.value;
+                }
+            });
+
+            kotaInput?.addEventListener("input", function() {
+                hiddenKota.value = this.value;
+            });
+
+            // Tambah Jadwal
+            document.getElementById("addScheduleStaff")?.addEventListener("click", function() {
+                const tanggal = document.getElementById("tanggal_staff").value;
+                const waktuMulai = document.getElementById("waktu_mulai_staff").value;
+                const tipe = document.getElementById("tipe_harga_staff").value;
+                const harga = document.getElementById("harga_staff").value.trim();
+                const kotaSelect = document.getElementById("kota-select-staff");
+                const kotaInput = document.getElementById("kota-input-staff");
+                const kota = kotaSelect.value === "lainnya" ? kotaInput.value : kotaSelect.value;
+                const tempat = document.getElementById("tempat_staff").value.trim();
+
+                // Validasi wajib diisi
+                if (!tanggal || !waktuMulai || !kota || !tempat || !tipe) {
+                    alert("Mohon lengkapi semua field.");
+                    return;
+                }
+
+                // Validasi harga jika pilih "Bayar"
+                if (tipe === "Bayar") {
+                    const hargaNominal = parseInt(harga.replace(/,/g, ""), 10);
+                    if (!hargaNominal || hargaNominal <= 0) {
+                        alert("Harga harus diisi dengan angka yang valid.");
+                        return;
+                    }
+                }
+
+                const scheduleText = (tipe === "Gratis") ? "Gratis" : `Rp ${harga}`;
+
+                const newSchedule = {
+                    tanggal: tanggal,
+                    waktu_mulai: waktuMulai,
+                    waktu_selesai: null, // karena tidak digunakan
+                    tipe_harga: tipe,
+                    harga: (tipe === "Gratis") ? null : harga,
+                    kota: kota,
+                    tempat: tempat
+                };
+
+                const hiddenInput = document.querySelector('input[name="hidden_schedule_staff"]');
+                let currentSchedules = hiddenInput.value ? JSON.parse(hiddenInput.value) : [];
+                currentSchedules.push(newSchedule);
+                hiddenInput.value = JSON.stringify(currentSchedules);
+
+                const draftContainer = document.getElementById("draft-schedule-staff");
+                const item = document.createElement("div");
+                item.classList.add("draft-schedule-item");
+                item.innerHTML = `
+        <p><strong>${tanggal}, ${waktuMulai}</strong></p>
+        <p>${scheduleText}</p>
+        <p>${kota} - ${tempat}</p>
+        <button type="button" class="delete-draft-btn">x</button>
+    `;
+
+                item.querySelector(".delete-draft-btn").addEventListener("click", () => {
+                    draftContainer.removeChild(item);
+                    currentSchedules = currentSchedules.filter(s =>
+                        !(s.tanggal === tanggal && s.waktu_mulai === waktuMulai && s.kota === kota && s.tempat === tempat)
+                    );
+                    hiddenInput.value = JSON.stringify(currentSchedules);
+                });
+
+                draftContainer.appendChild(item);
+            });
+
+
+            // Salin sosial media dari mitra
+            document.getElementById("same-sosmed-staff")?.addEventListener("change", function() {
+                const mitraId = document.getElementById("mitra_teater_staff").value;
+                const checkbox = this;
+                const draftContainer = document.getElementById("draft-accounts-staff");
+                const hiddenInput = document.getElementById("hidden_accounts_staff");
+
+                if (!checkbox.checked) return;
+                if (!mitraId) {
+                    alert("Pilih mitra terlebih dahulu.");
+                    checkbox.checked = false;
+                    return;
+                }
+
+                fetch(`${baseUrl}/teater/getMitraSosmed/${mitraId}`)
+                    .then(res => res.json())
+                    .then(data => {
+                        if (data.length === 0) {
+                            alert("Mitra ini tidak memiliki sosial media.");
+                            checkbox.checked = false;
+                            return;
+                        }
+
+                        let hiddenData = hiddenInput.value ? JSON.parse(hiddenInput.value) : [];
+
+                        data.forEach(item => {
+                            if (hiddenData.some(d => d.platformId === item.id_platform_sosmed)) return;
+
+                            const draftItem = document.createElement("div");
+                            draftItem.classList.add("draft-item");
+                            draftItem.innerHTML = `
+                        <span>${item.platform_name}</span> - 
+                        <span>${item.acc_mitra}</span>
+                        <button type="button" class="delete-draft-btn">x</button>
+                    `;
+
+                            draftItem.querySelector(".delete-draft-btn").addEventListener("click", () => {
+                                draftItem.remove();
+                                hiddenData = hiddenData.filter(d => d.account !== item.acc_mitra);
+                                hiddenInput.value = JSON.stringify(hiddenData);
+                            });
+
+                            draftContainer.appendChild(draftItem);
+                            hiddenData.push({
+                                platformId: item.id_platform_sosmed,
+                                platformName: item.platform_name,
+                                account: item.acc_mitra
+                            });
+
+                            hiddenInput.value = JSON.stringify(hiddenData);
+                        });
+                    })
+                    .catch(err => {
+                        console.error("Gagal fetch sosmed mitra:", err);
+                        alert("Terjadi kesalahan mengambil data sosial media.");
+                    });
+            });
+
+            document.getElementById("add-account-btn-staff")?.addEventListener("click", function() {
+                const platformSelect = document.querySelector('select[name="id_platform_sosmed_staff[]"]');
+                const accInput = document.querySelector('input[name="acc_name_staff[]"]');
+                const draftContainer = document.getElementById("draft-accounts-staff");
+                const hiddenInput = document.getElementById("hidden_accounts_staff");
+
+                const platformId = platformSelect.value;
+                const platformName = platformSelect.options[platformSelect.selectedIndex]?.textContent.trim();
+                const accName = accInput.value.trim();
+
+                // Validasi input
+                if (!platformId || !accName) {
+                    alert("Silakan pilih platform dan isi nama akun.");
+                    return;
+                }
+
+                // Ambil data lama dari hidden input
+                let data = hiddenInput.value ? JSON.parse(hiddenInput.value) : [];
+
+                // Cegah duplikat akun sosial media
+                const isDuplicate = data.some(d => d.platformId === platformId && d.account === accName);
+                if (isDuplicate) {
+                    alert("Sosial media ini sudah ditambahkan.");
+                    return;
+                }
+
+                // Buat draft item
+                const draftItem = document.createElement("div");
+                draftItem.classList.add("draft-item");
+                draftItem.innerHTML = `
+        <span>${platformName}</span> - 
+        <span>${accName}</span>
+        <button type="button" class="delete-draft-btn">x</button>
+    `;
+
+                // Event hapus draft
+                draftItem.querySelector(".delete-draft-btn").addEventListener("click", () => {
+                    draftItem.remove();
+                    data = data.filter(d => !(d.platformId === platformId && d.account === accName));
+                    hiddenInput.value = JSON.stringify(data);
+                });
+
+                draftContainer.appendChild(draftItem);
+
+                // Update hidden input
+                data.push({
+                    platformId,
+                    platformName,
+                    account: accName
+                });
+                hiddenInput.value = JSON.stringify(data);
+
+                // Reset input
+                platformSelect.selectedIndex = 0;
+                accInput.value = "";
+            });
+
+
+            // Tambah Website
+            document.getElementById("add-web-btn-staff")?.addEventListener("click", () => {
+                const titleInput = document.querySelector('input[name="judul_web_staff[]"]');
+                const urlInput = document.querySelector('input[name="url_web_staff[]"]');
+                const draftContainer = document.getElementById("draft-web-staff");
+                const hiddenInput = document.querySelector('input[name="hidden_web_staff"]');
+
+                const title = titleInput.value.trim();
+                const url = urlInput.value.trim();
+
+                if ((title && !url) || (!title && url)) {
+                    alert("Isi kedua kolom Website (Judul dan URL) atau biarkan kosong.");
+                    return;
+                }
+
+                if (!title && !url) return;
+
+                const draftItem = document.createElement("div");
+                draftItem.classList.add("draft-item");
+                draftItem.setAttribute("data-title", title);
+                draftItem.setAttribute("data-url", url);
+                draftItem.innerHTML = `
+            <span>${title}</span> - 
+            <span>${url}</span>
+            <button type="button" class="delete-draft-btn">x</button>
+        `;
+
+                draftItem.querySelector(".delete-draft-btn").addEventListener("click", () => {
+                    draftItem.remove();
+                    const items = draftContainer.querySelectorAll(".draft-item");
+                    const data = Array.from(items).map(item => ({
+                        title: item.getAttribute("data-title"),
+                        url: item.getAttribute("data-url")
+                    }));
+                    hiddenInput.value = JSON.stringify(data);
+                });
+
+                draftContainer.appendChild(draftItem);
+
+                const allItems = draftContainer.querySelectorAll(".draft-item");
+                const webData = Array.from(allItems).map(item => ({
+                    title: item.getAttribute("data-title"),
+                    url: item.getAttribute("data-url")
+                }));
+                hiddenInput.value = JSON.stringify(webData);
+
+                titleInput.value = "";
+                urlInput.value = "";
+            });
+        });
     </script>
 </body>
 

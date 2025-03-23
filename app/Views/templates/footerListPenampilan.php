@@ -144,6 +144,18 @@
             document.getElementById("overlay").style.display = "none";
             localStorage.removeItem("pendingUpload");
         });
+
+        // Buka popup saat tombol "Upload Tiket" diklik
+        document.getElementById("btnUploadBukti").addEventListener("click", function() {
+            document.getElementById("popupUploadBukti").style.display = "block";
+            document.getElementById("overlay").style.display = "block"; // pastikan ada elemen overlay jika ingin efek blur
+        });
+
+        // Tutup popup saat tombol "Batal" diklik
+        function closePopup() {
+            document.getElementById("popupUploadBukti").style.display = "none";
+            document.getElementById("overlay").style.display = "none";
+        }
     </script>
 </body>
 

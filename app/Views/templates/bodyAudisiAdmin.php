@@ -232,7 +232,7 @@
 
                                         <!-- Toggle Harga (Muncul saat pilih "Bayar") -->
                                         <div id="nominal-harga" style="display:none;">
-                                            <input type="text" name="harga" id="harga" class="form-control" placeholder="Masukkan harga">
+                                            <input type="number" name="harga" id="harga" class="form-control" placeholder="Masukkan harga">
                                         </div>
 
                                         <!-- <select name="kota[]" id="kota-select" class="form-control" required onchange="toggleLainnya(this)"> -->
@@ -270,6 +270,7 @@
                         <!-- Right Side (Form Fields) -->
                         <div class="popup-right">
                             <div class="form-group">
+                                <label for="url_pendaftaran">URL Pendaftaran</label>
                                 <input type="text" name="url_pendaftaran" id="url_pendaftaran" class="form-control" placeholder="Masukkan url web">
                             </div>
                             <div class="form-group">
@@ -360,148 +361,180 @@
         <div id="auditionPopupStaff" class="popup">
             <div class="popup-content">
                 <h3 id="popupTitleStaff">Tambah Audisi Staff</h3>
-                <form id="auditionFormStaff" class="" action="<?= base_url('Admin/saveAuditionStaff') ?>" method="POST" enctype="multipart/form-data">
+                <form id="auditionFormStaff" action="<?= base_url('Admin/saveAuditionStaff') ?>" method="POST" enctype="multipart/form-data">
                     <?= csrf_field() ?>
 
-                    <input type="hidden" id="id_kategori" value="2">
-
                     <div class="popup-body">
-                        <!-- Left Side (Form Fields) -->
+                        <input type="hidden" name="tipe_teater" id="tipe_teater_staff" value="audisi">
+                        <input type="hidden" name="id_kategori" id="id_kategori_staff" value="2">
+
+
+                        <!-- ✅ LEFT SIDE -->
                         <div class="popup-left">
                             <div class="form-group">
-                                <label for="judul">Judul</label>
-                                <input type="text" id="judul" class="form-control" placeholder="Masukkan judul pertunjukan yang diaudisi" required>
+                                <label for="judul_staff">Judul</label>
+                                <input type="text" id="judul_staff" class="form-control" name="judul" placeholder="Masukkan judul" required>
                             </div>
+
                             <div class="form-group">
-                                <label for="poster">Poster Audisi</label>
-                                <input type="file" id="poster" class="form-control" accept="image/*" required>
+                                <label for="poster_staff">Poster Audisi</label>
+                                <input type="file" id="poster_staff" class="form-control" name="poster" accept="image/*" required>
                             </div>
+
                             <div class="form-group">
-                                <label for="sinopsis">Sinopsis</label>
-                                <textarea id="sinopsis" class="form-control" placeholder="Masukkan sinopsis pertunjukan yang diaudisikan"></textarea>
+                                <label for="sinopsis_staff">Sinopsis</label>
+                                <textarea id="sinopsis_staff" name="sinopsis" class="form-control" placeholder="Masukkan sinopsis"></textarea>
                             </div>
+
                             <div class="form-group">
                                 <label for="jenis_staff">Staff yang diaudisikan</label>
-                                <input type="text" id="jenis_staff" class="form-control" placeholder="Masukkan jenis staff yang diaudisikan (ex: Tata Lampu)" required>
+                                <input type="text" id="jenis_staff" class="form-control" name="jenis_staff" placeholder="Contoh: Tata Lampu" required>
                             </div>
+
                             <div class="form-group">
                                 <label for="jobdesc_staff">Deskripsi Pekerjaan Staff</label>
-                                <textarea id="jobdesc_staff" class="form-control" placeholder="Masukkan deskripsi pekerjaan staff yang diaudisikan"></textarea>
+                                <textarea id="jobdesc_staff" name="jobdesc_staff" class="form-control" placeholder="Deskripsi pekerjaan staff"></textarea>
                             </div>
+
+                            <!-- ✅ Jadwal -->
                             <div class="form-group">
-                                <label for="harga">Harga Tiket Audisi</label>
-                                <select name="harga_input[]" id="harga_input" class="form-control" required>
-                                    <option selected disabled>Harga tiket</option>
-                                    <option>Bayar</option>
-                                    <option value="Gratis">Gratis</option>
-                                </select>
-                                <input type="text" id="harga" oninput="formatHarga(this)" placeholder="Masukkan harga" style="display:none;">
-                            </div>
-                            <div class="form-group">
-                                <label for="tanggal" class="form-label">Jadwal Audisi</label>
-                                <div id="schedule-audition-input">
+                                <label for="jadwal_staff">Jadwal Audisi</label>
+                                <div id="schedule-audition-input-staff">
                                     <div class="schedule-audition">
-                                        <input type="date" name="tanggal" id="tanggal" class="form-control" placeholder="Masukkan Tanggal Audisi" required>
-                                        <input type="time" id="waktu" class="form-control" placeholder="Masukkan Waktu Audisi" required>
-                                        <select name="kota[]" id="kota" class="form-control" required>
+                                        <input type="date" name="tanggal_staff" id="tanggal_staff" class="form-control" required>
+                                        <input type="time" name="waktu_mulai_staff" id="waktu_mulai_staff" class="form-control" required>
+
+                                        <select name="tipe_harga_staff" id="tipe_harga_staff" class="form-control" required>
+                                            <option selected disabled>Harga tiket</option>
+                                            <option value="Bayar">Bayar</option>
+                                            <option value="Gratis">Gratis</option>
+                                        </select>
+
+                                        <div id="nominal-harga-staff" style="display:none;">
+                                            <input type="number" name="harga_staff" id="harga_staff" class="form-control" placeholder="Masukkan harga">
+                                        </div>
+
+                                        <select name="kota_staff[]" id="kota-select-staff" class="form-control" required>
                                             <option selected disabled>Pilih Kota</option>
-                                            <option>Jakarta</option>
-                                            <option>Bogor</option>
-                                            <option>Depok</option>
-                                            <option>Tangerang</option>
-                                            <option>Bekasi</option>
+                                            <option value="Jakarta">Jakarta</option>
+                                            <option value="Bogor">Bogor</option>
+                                            <option value="Depok">Depok</option>
+                                            <option value="Tangerang">Tangerang</option>
+                                            <option value="Bekasi">Bekasi</option>
                                             <option value="lainnya">Lainnya</option>
                                         </select>
-                                        <input type="text" id="kota-lain" placeholder="Masukkan kota" style="display:none;">
-                                        <textarea id="tempat" class="form-control" placeholder="Masukkan alamat tempat audisi" required></textarea>
+
+                                        <div id="lainnya-container-staff" style="display: none;">
+                                            <input type="text" name="kota_staff[]" id="kota-input-staff" placeholder="Masukkan kota lainnya" class="form-control">
+                                        </div>
+
+                                        <input type="hidden" id="hidden-kota-staff" name="kota_real_staff" />
+
+                                        <textarea name="tempat_staff" id="tempat_staff" class="form-control" placeholder="Alamat tempat pertunjukan" required></textarea>
                                     </div>
-                                    <button type="button" onclick="addSchedule()">Tambah Jadwal Audisi</button>
+                                    <button type="button" id="addScheduleStaff">Tambah Jadwal</button>
                                 </div>
-                                <div id="draft-schedule"></div>
-                                <input type="hidden" name="hidden_schedule" value="">
+                                <div id="draft-schedule-staff"></div>
+                                <input type="hidden" name="hidden_schedule_staff" value="">
                             </div>
+
                             <div class="form-group">
-                                <label for="penulis">Penulis</label>
-                                <input type="text" id="penulis" class="form-control" placeholder="Masukkan nama penulis" required>
+                                <label for="penulis_staff">Penulis</label>
+                                <input type="text" id="penulis_staff" name="penulis" class="form-control" placeholder="Nama penulis" required>
                             </div>
                         </div>
 
-                        <!-- Right Side (Form Fields) -->
+                        <!-- ✅ RIGHT SIDE -->
                         <div class="popup-right">
                             <div class="form-group">
-                                <label for="syarat">Persyaratan Staff</label>
-                                <textarea id="syarat" class="form-control" placeholder="Masukkan persyaratan staff" required></textarea>
+                                <label for="url_pendaftaran_staff">URL Pendaftaran</label>
+                                <input type="text" name="url_pendaftaran" id="url_pendaftaran_staff" class="form-control" placeholder="Masukkan URL">
                             </div>
+
                             <div class="form-group">
-                                <label for="syarat_dokumen">Persyaratan dokumen</label>
-                                <textarea id="syarat_dokumen" class="form-control" placeholder="Masukkan persyaratan dokumen"></textarea>
+                                <label for="syarat_staff">Persyaratan Staff</label>
+                                <textarea id="syarat_staff" name="syarat" class="form-control" placeholder="Persyaratan" required></textarea>
                             </div>
+
                             <div class="form-group">
-                                <label for="sutradara">Sutradara</label>
-                                <input type="text" id="sutradara" class="form-control" placeholder="Masukkan nama sutradara" required>
+                                <label for="syarat_dokumen_staff">Persyaratan Dokumen</label>
+                                <textarea id="syarat_dokumen_staff" name="syarat_dokumen" class="form-control" placeholder="Persyaratan dokumen"></textarea>
                             </div>
+
                             <div class="form-group">
-                                <label for="staff">Staff</label>
-                                <input type="text" id="staff" class="form-control" placeholder="Masukkan nama staff">
+                                <label for="sutradara_staff">Sutradara</label>
+                                <input type="text" id="sutradara_staff" name="sutradara" class="form-control" placeholder="Nama sutradara" required>
                             </div>
+
                             <div class="form-group">
-                                <label for="gaji">Gaji Staff</label>
-                                <input type="text" id="gaji" class="form-control" placeholder="Masukkan gaji staff" required>
+                                <label for="staff_name_staff">Nama Staff</label>
+                                <input type="text" id="staff_name_staff" name="staff" class="form-control" placeholder="Nama staff">
                             </div>
+
                             <div class="form-group">
-                                <label for="komitmen">Komitmen sebagai Staff</label>
-                                <textarea id="komitmen" class="form-control" placeholder="Masukkan komitmen staff"></textarea>
+                                <label for="gaji_staff">Gaji Staff</label>
+                                <input type="number" id="gaji_staff" name="gaji_staff" class="form-control" placeholder="Masukkan gaji" required>
                             </div>
+
                             <div class="form-group">
-                                <label for="mitra_teater_staff">Pilih Mitra Teater</label>
-                                <select id="mitra_teater_staff" name="mitra_teater" class="form-control" required>
+                                <label for="komitmen_staff">Komitmen</label>
+                                <textarea id="komitmen_staff" name="komitmen_staff" class="form-control" placeholder="Komitmen staff"></textarea>
+                            </div>
+
+                            <div class="form-group">
+                                <label for="mitra_teater_staff">Mitra Teater</label>
+                                <select id="mitra_teater_staff" name="mitra_teater_staff" class="form-control" required>
                                     <option value="" selected disabled>Pilih Mitra Teater</option>
                                 </select>
                             </div>
+
+                            <!-- ✅ Sosial Media -->
                             <div class="form-group">
-                                <label for="id_platform_sosmed[]" class="form-label">Sosial Media Teater</label>
+                                <label>Sosial Media Teater</label>
                                 <div>
-                                    <input type="checkbox" id="same-sosmed" onchange="copySosmed()"> Sama dengan sosial media komunitas
+                                    <input type="checkbox" id="same-sosmed-staff"> Sama dengan sosial media komunitas
                                 </div>
-                                <div id="social-media-input">
+                                <div id="social-media-input-staff">
                                     <div class="social-media-mitra">
-                                        <select name="id_platform_sosmed[]" id="platform_name" class="form-control" aria-label="Platform" required>
+                                        <select name="id_platform_sosmed_staff[]" class="form-control">
                                             <option value="" selected disabled>Choose Platform</option>
-                                            <option value="1" data-nama="instagram">Instagram</option>
-                                            <option value="2" data-nama="twitter">Twitter</option>
-                                            <option value="3" data-nama="facebook">Facebook</option>
-                                            <option value="4" data-nama="threads">Threads</option>
-                                            <option value="5" data-nama="tiktok">Tiktok</option>
-                                            <option value="7" data-nama="telegram">Telegram</option>
-                                            <option value="8" data-nama="discord">Discord</option>
-                                            <option value="10" data-nama="line">LINE</option>
-                                            <option value="9" data-nama="whatsapp">Whatsapp</option>
-                                            <option value="6" data-nama="youtube">Youtube</option>
+                                            <option value="1">Instagram</option>
+                                            <option value="2">Twitter</option>
+                                            <option value="3">Facebook</option>
+                                            <option value="4">Threads</option>
+                                            <option value="5">Tiktok</option>
+                                            <option value="6">Youtube</option>
+                                            <option value="7">Telegram</option>
+                                            <option value="8">Discord</option>
+                                            <option value="9">Whatsapp</option>
+                                            <option value="10">LINE</option>
                                         </select>
 
-                                        <input type="text" name="acc_name[]" id="acc_name" class="form-control" placeholder="Enter your account name">
-                                        <?= !empty(\Config\Services::validation()->getError('acc_name')) ? \Config\Services::validation()->getError('acc_name') : \Config\Services::validation()->getError('hidden_accounts') ?>
+                                        <input type="text" name="acc_name_staff[]" class="form-control" placeholder="Nama akun">
                                     </div>
-                                    <button id="add-account-btn" type="button" class="btn btn-danger add-item">Add Another Account</button>
+                                    <button id="add-account-btn-staff" type="button" class="btn btn-danger add-item">Add Another Account</button>
                                 </div>
-                                <div id="draft-accounts"></div>
-                                <input type="hidden" name="hidden_accounts" value="">
+                                <div id="draft-accounts-staff"></div>
+                                <input type="hidden" name="hidden_accounts_staff" id="hidden_accounts_staff" value="[]">
                             </div>
+
+                            <!-- ✅ Website -->
                             <div class="form-group">
-                                <label for="judul_web[]" class="form-label">Website Teater</label>
-                                <div id="website-input">
+                                <label>Website Teater</label>
+                                <div id="website-input-staff">
                                     <div class="website-teater">
-                                        <input type="text" name="judul_web[]" id="judul_web" class="form-control" placeholder="Masukkan judul web">
-                                        <input type="text" name="url_web[]" id="url_web" class="form-control" placeholder="Masukkan url web">
+                                        <input type="text" name="judul_web_staff[]" id="judul_web_staff" class="form-control" placeholder="Judul web">
+                                        <input type="text" name="url_web_staff[]" id="url_web_staff" class="form-control" placeholder="URL web">
                                     </div>
-                                    <button id="add-web-btn" type="button" class="btn btn-danger add-item">Tambah Website</button>
+                                    <button id="add-web-btn-staff" type="button" class="btn btn-danger add-item">Tambah Website</button>
                                 </div>
-                                <div id="draft-web"></div>
-                                <input type="hidden" name="hidden_web" value="">
+                                <div id="draft-web-staff"></div>
+                                <input type="hidden" name="hidden_web_staff" id="hidden_web_staff" value="">
                             </div>
                         </div>
                     </div>
 
+                    <!-- ✅ Footer -->
                     <div class="popup-footer">
                         <div class="button-group">
                             <button type="submit" class="btn btn-success">Simpan</button>

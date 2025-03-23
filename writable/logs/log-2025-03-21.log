@@ -1,77 +1,9 @@
-INFO - 2025-03-21 02:10:02 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
-INFO - 2025-03-21 02:10:19 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
-INFO - 2025-03-21 02:10:51 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
-INFO - 2025-03-21 02:11:49 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
-INFO - 2025-03-21 02:11:50 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
-INFO - 2025-03-21 02:11:52 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
-INFO - 2025-03-21 02:11:53 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
-INFO - 2025-03-21 02:11:55 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
-INFO - 2025-03-21 02:12:11 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
-INFO - 2025-03-21 02:12:12 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
-INFO - 2025-03-21 02:12:12 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
-INFO - 2025-03-21 02:17:54 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
-INFO - 2025-03-21 02:17:55 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
-INFO - 2025-03-21 02:17:56 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
-INFO - 2025-03-21 02:27:00 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
-INFO - 2025-03-21 02:27:01 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
-INFO - 2025-03-21 02:27:01 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
-INFO - 2025-03-21 02:28:21 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
-INFO - 2025-03-21 02:28:21 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
-INFO - 2025-03-21 02:28:22 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
-INFO - 2025-03-21 02:32:15 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
-INFO - 2025-03-21 02:32:17 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
-INFO - 2025-03-21 02:32:17 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
-INFO - 2025-03-21 02:39:02 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
-INFO - 2025-03-21 02:39:03 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
-INFO - 2025-03-21 02:39:03 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
-INFO - 2025-03-21 02:40:28 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
-INFO - 2025-03-21 02:40:29 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
-INFO - 2025-03-21 02:40:29 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
-INFO - 2025-03-21 02:40:49 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
-INFO - 2025-03-21 02:44:00 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
-INFO - 2025-03-21 02:44:01 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
-INFO - 2025-03-21 02:44:02 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
-INFO - 2025-03-21 02:44:21 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
-INFO - 2025-03-21 02:45:34 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
-INFO - 2025-03-21 02:45:35 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
-INFO - 2025-03-21 02:45:41 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
-INFO - 2025-03-21 02:46:06 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
-INFO - 2025-03-21 02:46:20 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
-INFO - 2025-03-21 02:48:13 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
-INFO - 2025-03-21 02:48:14 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
-INFO - 2025-03-21 02:48:21 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
-INFO - 2025-03-21 02:50:10 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
-INFO - 2025-03-21 02:50:11 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
-INFO - 2025-03-21 02:50:16 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
-INFO - 2025-03-21 02:50:58 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
-INFO - 2025-03-21 02:53:44 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
-INFO - 2025-03-21 02:53:45 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
-INFO - 2025-03-21 02:53:53 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
-INFO - 2025-03-21 02:55:52 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
-INFO - 2025-03-21 02:55:53 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
-INFO - 2025-03-21 02:56:03 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
-INFO - 2025-03-21 02:57:15 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
-INFO - 2025-03-21 02:57:15 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
-INFO - 2025-03-21 02:57:20 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
-INFO - 2025-03-21 02:58:45 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
-INFO - 2025-03-21 02:58:46 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
-INFO - 2025-03-21 02:59:53 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
-INFO - 2025-03-21 02:59:54 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
-INFO - 2025-03-21 03:01:48 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
-INFO - 2025-03-21 03:01:49 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
-INFO - 2025-03-21 03:01:54 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
-INFO - 2025-03-21 03:03:06 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
-INFO - 2025-03-21 03:03:07 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
-INFO - 2025-03-21 03:03:12 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
-INFO - 2025-03-21 03:06:36 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
-INFO - 2025-03-21 03:06:38 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
-INFO - 2025-03-21 03:06:44 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
-INFO - 2025-03-21 03:10:57 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
-INFO - 2025-03-21 03:11:17 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
-INFO - 2025-03-21 03:11:17 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
-INFO - 2025-03-21 03:11:24 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
-INFO - 2025-03-21 03:11:59 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
-ERROR - 2025-03-21 03:12:00 --> mysqli_sql_exception: Cannot add or update a child row: a foreign key constraint fails (`db_teaterform`.`m_audisi`, CONSTRAINT `m_audisi_ibfk_2` FOREIGN KEY (`id_kategori`) REFERENCES `m_kategori_audisi` (`id_kategori`)) in E:\laragon\www\CodeIgniter4\system\Database\MySQLi\Connection.php:312
+INFO - 2025-03-21 21:16:04 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+INFO - 2025-03-21 21:16:04 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+INFO - 2025-03-21 21:16:05 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+INFO - 2025-03-21 21:16:43 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+INFO - 2025-03-21 21:17:01 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+ERROR - 2025-03-21 21:17:01 --> mysqli_sql_exception: Column 'waktu_selesai' cannot be null in E:\laragon\www\CodeIgniter4\system\Database\MySQLi\Connection.php:312
 Stack trace:
 #0 E:\laragon\www\CodeIgniter4\system\Database\MySQLi\Connection.php(312): mysqli->query('INSERT INTO `m_...', 0)
 #1 E:\laragon\www\CodeIgniter4\system\Database\BaseConnection.php(734): CodeIgniter\Database\MySQLi\Connection->execute('INSERT INTO `m_...')
@@ -80,15 +12,30 @@ Stack trace:
 #4 E:\laragon\www\CodeIgniter4\system\Model.php(394): CodeIgniter\Database\BaseBuilder->insert()
 #5 E:\laragon\www\CodeIgniter4\system\BaseModel.php(840): CodeIgniter\Model->doInsert(Array)
 #6 E:\laragon\www\CodeIgniter4\system\Model.php(802): CodeIgniter\BaseModel->insert(Array, true)
-#7 E:\laragon\www\CodeIgniter4\app\Controllers\Admin.php(556): CodeIgniter\Model->insert(Array)
-#8 E:\laragon\www\CodeIgniter4\system\CodeIgniter.php(933): App\Controllers\Admin->saveAuditionAktor()
+#7 E:\laragon\www\CodeIgniter4\app\Controllers\Admin.php(720): CodeIgniter\Model->insert(Array)
+#8 E:\laragon\www\CodeIgniter4\system\CodeIgniter.php(933): App\Controllers\Admin->saveAuditionStaff()
 #9 E:\laragon\www\CodeIgniter4\system\CodeIgniter.php(509): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\Admin))
 #10 E:\laragon\www\CodeIgniter4\system\CodeIgniter.php(355): CodeIgniter\CodeIgniter->handleRequest(NULL, Object(Config\Cache), false)
 #11 E:\laragon\www\CodeIgniter4\system\Boot.php(325): CodeIgniter\CodeIgniter->run()
 #12 E:\laragon\www\CodeIgniter4\system\Boot.php(67): CodeIgniter\Boot::runCodeIgniter(Object(CodeIgniter\CodeIgniter))
 #13 E:\laragon\www\CodeIgniter4\public\index.php(59): CodeIgniter\Boot::bootWeb(Object(Config\Paths))
 #14 {main}
-ERROR - 2025-03-21 03:12:00 --> mysqli_sql_exception: Cannot add or update a child row: a foreign key constraint fails (`db_teaterform`.`m_audisi_aktor`, CONSTRAINT `m_audisi_aktor_ibfk_1` FOREIGN KEY (`id_audisi`) REFERENCES `m_audisi` (`id_audisi`)) in E:\laragon\www\CodeIgniter4\system\Database\MySQLi\Connection.php:312
+INFO - 2025-03-21 21:45:19 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+INFO - 2025-03-21 21:45:20 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+INFO - 2025-03-21 21:45:20 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+INFO - 2025-03-21 21:45:48 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+INFO - 2025-03-21 21:45:56 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+INFO - 2025-03-21 21:47:56 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+INFO - 2025-03-21 21:47:57 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+INFO - 2025-03-21 21:47:57 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+INFO - 2025-03-21 21:48:20 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+INFO - 2025-03-21 21:48:26 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+INFO - 2025-03-21 21:49:45 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+INFO - 2025-03-21 21:49:46 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+INFO - 2025-03-21 21:49:46 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+INFO - 2025-03-21 21:50:09 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+INFO - 2025-03-21 21:50:14 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+ERROR - 2025-03-21 21:50:14 --> mysqli_sql_exception: Column 'waktu_selesai' cannot be null in E:\laragon\www\CodeIgniter4\system\Database\MySQLi\Connection.php:312
 Stack trace:
 #0 E:\laragon\www\CodeIgniter4\system\Database\MySQLi\Connection.php(312): mysqli->query('INSERT INTO `m_...', 0)
 #1 E:\laragon\www\CodeIgniter4\system\Database\BaseConnection.php(734): CodeIgniter\Database\MySQLi\Connection->execute('INSERT INTO `m_...')
@@ -97,30 +44,16 @@ Stack trace:
 #4 E:\laragon\www\CodeIgniter4\system\Model.php(394): CodeIgniter\Database\BaseBuilder->insert()
 #5 E:\laragon\www\CodeIgniter4\system\BaseModel.php(840): CodeIgniter\Model->doInsert(Array)
 #6 E:\laragon\www\CodeIgniter4\system\Model.php(802): CodeIgniter\BaseModel->insert(Array, true)
-#7 E:\laragon\www\CodeIgniter4\app\Controllers\Admin.php(565): CodeIgniter\Model->insert(Array)
-#8 E:\laragon\www\CodeIgniter4\system\CodeIgniter.php(933): App\Controllers\Admin->saveAuditionAktor()
+#7 E:\laragon\www\CodeIgniter4\app\Controllers\Admin.php(721): CodeIgniter\Model->insert(Array)
+#8 E:\laragon\www\CodeIgniter4\system\CodeIgniter.php(933): App\Controllers\Admin->saveAuditionStaff()
 #9 E:\laragon\www\CodeIgniter4\system\CodeIgniter.php(509): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\Admin))
 #10 E:\laragon\www\CodeIgniter4\system\CodeIgniter.php(355): CodeIgniter\CodeIgniter->handleRequest(NULL, Object(Config\Cache), false)
 #11 E:\laragon\www\CodeIgniter4\system\Boot.php(325): CodeIgniter\CodeIgniter->run()
 #12 E:\laragon\www\CodeIgniter4\system\Boot.php(67): CodeIgniter\Boot::runCodeIgniter(Object(CodeIgniter\CodeIgniter))
 #13 E:\laragon\www\CodeIgniter4\public\index.php(59): CodeIgniter\Boot::bootWeb(Object(Config\Paths))
 #14 {main}
-INFO - 2025-03-21 03:19:06 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
-INFO - 2025-03-21 03:19:07 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
-INFO - 2025-03-21 03:23:21 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
-INFO - 2025-03-21 03:23:22 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
-INFO - 2025-03-21 03:23:56 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
-INFO - 2025-03-21 03:24:04 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
-DEBUG - 2025-03-21 03:24:04 --> 📌 Data yang diterima di saveAuditionAktor: {"csrf_test_name":"154242edf1c1a7d50ef3c73ee6bc4438","tipe_teater":"audisi","id_kategori":"1","judul":"qq","sinopsis":"qq","karakter_audisi":"qq","deskripsi_karakter":"qq","tanggal":"2025-03-21","waktu_mulai":"10:23","waktu_selesai":"12:23","tipe_harga":"Bayar","harga":"123","kota":["lainnya","qwe"],"kota_real":"qwe","tempat":"qwe","hidden_schedule":"[{\"tanggal\":\"2025-03-21\",\"waktu_mulai\":\"10:23\",\"waktu_selesai\":\"12:23\",\"tipe_harga\":\"Bayar\",\"harga\":\"123\",\"kota\":\"qwe\",\"tempat\":\"qwe\"}]","penulis":"qwe","syarat":"qq","syarat_dokumen":"qq","sutradara":"qq","staff":"qq","gaji":"123","komitmen":"qwe","mitra_teater":"5","acc_name":[""],"hidden_accounts":"[{\"platformId\":\"1\",\"platformName\":\"instagram\",\"account\":\"pearlmhrlk\"}]","judul_web":[""],"url_web":[""],"hidden_web":"[{\"title\":\"qw\",\"url\":\"qwe\"}]"}
-INFO - 2025-03-21 03:27:53 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
-INFO - 2025-03-21 03:27:54 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
-INFO - 2025-03-21 03:28:24 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
-INFO - 2025-03-21 03:28:32 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
-INFO - 2025-03-21 03:35:16 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
-INFO - 2025-03-21 03:35:18 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
-INFO - 2025-03-21 03:35:50 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
-INFO - 2025-03-21 03:35:56 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
-ERROR - 2025-03-21 03:35:56 --> mysqli_sql_exception: Cannot add or update a child row: a foreign key constraint fails (`db_teaterform`.`m_audisi`, CONSTRAINT `m_audisi_ibfk_2` FOREIGN KEY (`id_kategori`) REFERENCES `m_kategori_audisi` (`id_kategori`)) in E:\laragon\www\CodeIgniter4\system\Database\MySQLi\Connection.php:312
+INFO - 2025-03-21 21:51:10 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+ERROR - 2025-03-21 21:51:10 --> mysqli_sql_exception: Cannot add or update a child row: a foreign key constraint fails (`db_teaterform`.`m_show_schedule`, CONSTRAINT `m_show_schedule_ibfk_2` FOREIGN KEY (`id_location`) REFERENCES `m_lokasi_teater` (`id_location`) ON DELETE CASCADE) in E:\laragon\www\CodeIgniter4\system\Database\MySQLi\Connection.php:312
 Stack trace:
 #0 E:\laragon\www\CodeIgniter4\system\Database\MySQLi\Connection.php(312): mysqli->query('INSERT INTO `m_...', 0)
 #1 E:\laragon\www\CodeIgniter4\system\Database\BaseConnection.php(734): CodeIgniter\Database\MySQLi\Connection->execute('INSERT INTO `m_...')
@@ -129,223 +62,16 @@ Stack trace:
 #4 E:\laragon\www\CodeIgniter4\system\Model.php(394): CodeIgniter\Database\BaseBuilder->insert()
 #5 E:\laragon\www\CodeIgniter4\system\BaseModel.php(840): CodeIgniter\Model->doInsert(Array)
 #6 E:\laragon\www\CodeIgniter4\system\Model.php(802): CodeIgniter\BaseModel->insert(Array, true)
-#7 E:\laragon\www\CodeIgniter4\app\Controllers\Admin.php(668): CodeIgniter\Model->insert(Array)
-#8 E:\laragon\www\CodeIgniter4\system\CodeIgniter.php(933): App\Controllers\Admin->saveAuditionAktor()
+#7 E:\laragon\www\CodeIgniter4\app\Controllers\Admin.php(724): CodeIgniter\Model->insert(Array)
+#8 E:\laragon\www\CodeIgniter4\system\CodeIgniter.php(933): App\Controllers\Admin->saveAuditionStaff()
 #9 E:\laragon\www\CodeIgniter4\system\CodeIgniter.php(509): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\Admin))
 #10 E:\laragon\www\CodeIgniter4\system\CodeIgniter.php(355): CodeIgniter\CodeIgniter->handleRequest(NULL, Object(Config\Cache), false)
 #11 E:\laragon\www\CodeIgniter4\system\Boot.php(325): CodeIgniter\CodeIgniter->run()
 #12 E:\laragon\www\CodeIgniter4\system\Boot.php(67): CodeIgniter\Boot::runCodeIgniter(Object(CodeIgniter\CodeIgniter))
 #13 E:\laragon\www\CodeIgniter4\public\index.php(59): CodeIgniter\Boot::bootWeb(Object(Config\Paths))
 #14 {main}
-ERROR - 2025-03-21 03:35:56 --> mysqli_sql_exception: Cannot add or update a child row: a foreign key constraint fails (`db_teaterform`.`m_audisi_aktor`, CONSTRAINT `m_audisi_aktor_ibfk_1` FOREIGN KEY (`id_audisi`) REFERENCES `m_audisi` (`id_audisi`)) in E:\laragon\www\CodeIgniter4\system\Database\MySQLi\Connection.php:312
-Stack trace:
-#0 E:\laragon\www\CodeIgniter4\system\Database\MySQLi\Connection.php(312): mysqli->query('INSERT INTO `m_...', 0)
-#1 E:\laragon\www\CodeIgniter4\system\Database\BaseConnection.php(734): CodeIgniter\Database\MySQLi\Connection->execute('INSERT INTO `m_...')
-#2 E:\laragon\www\CodeIgniter4\system\Database\BaseConnection.php(648): CodeIgniter\Database\BaseConnection->simpleQuery('INSERT INTO `m_...')
-#3 E:\laragon\www\CodeIgniter4\system\Database\BaseBuilder.php(2340): CodeIgniter\Database\BaseConnection->query('INSERT INTO `m_...', Array, false)
-#4 E:\laragon\www\CodeIgniter4\system\Model.php(394): CodeIgniter\Database\BaseBuilder->insert()
-#5 E:\laragon\www\CodeIgniter4\system\BaseModel.php(840): CodeIgniter\Model->doInsert(Array)
-#6 E:\laragon\www\CodeIgniter4\system\Model.php(802): CodeIgniter\BaseModel->insert(Array, true)
-#7 E:\laragon\www\CodeIgniter4\app\Controllers\Admin.php(681): CodeIgniter\Model->insert(Array)
-#8 E:\laragon\www\CodeIgniter4\system\CodeIgniter.php(933): App\Controllers\Admin->saveAuditionAktor()
-#9 E:\laragon\www\CodeIgniter4\system\CodeIgniter.php(509): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\Admin))
-#10 E:\laragon\www\CodeIgniter4\system\CodeIgniter.php(355): CodeIgniter\CodeIgniter->handleRequest(NULL, Object(Config\Cache), false)
-#11 E:\laragon\www\CodeIgniter4\system\Boot.php(325): CodeIgniter\CodeIgniter->run()
-#12 E:\laragon\www\CodeIgniter4\system\Boot.php(67): CodeIgniter\Boot::runCodeIgniter(Object(CodeIgniter\CodeIgniter))
-#13 E:\laragon\www\CodeIgniter4\public\index.php(59): CodeIgniter\Boot::bootWeb(Object(Config\Paths))
-#14 {main}
-INFO - 2025-03-21 03:39:22 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
-DEBUG - 2025-03-21 03:39:22 --> Last Query: NULL
-DEBUG - 2025-03-21 03:39:22 --> Poster uploaded: uploads/posters/1742528362_b980357fa828e92970f3.png
-DEBUG - 2025-03-21 03:39:22 --> Request data: {"csrf_test_name":"154242edf1c1a7d50ef3c73ee6bc4438","tipe_teater":"audisi","id_kategori":"1","judul":"qq","sinopsis":"qq","karakter_audisi":"qq","deskripsi_karakter":"qq","tanggal":"2025-03-21","waktu_mulai":"10:35","waktu_selesai":"11:35","tipe_harga":"Bayar","harga":"123","kota":["lainnya","qwe"],"kota_real":"qwe","tempat":"qwe","hidden_schedule":"[{\"tanggal\":\"2025-03-21\",\"waktu_mulai\":\"10:35\",\"waktu_selesai\":\"11:35\",\"tipe_harga\":\"Bayar\",\"harga\":\"123\",\"kota\":\"qwe\",\"tempat\":\"qwe\"}]","penulis":"qwe","syarat":"qq","syarat_dokumen":"qq","sutradara":"qq","staff":"qq","gaji":"123","komitmen":"qwe","mitra_teater":"5","acc_name":[""],"hidden_accounts":"[{\"platformId\":\"1\",\"platformName\":\"instagram\",\"account\":\"pearlmhrlk\"}]","judul_web":[""],"url_web":[""],"hidden_web":"[{\"title\":\"qwe\",\"url\":\"qwe\"}]"}
-DEBUG - 2025-03-21 03:39:22 --> Data yang diterima: {"tipe_teater":"audisi","judul":"qq","poster":"uploads\/posters\/1742528362_b980357fa828e92970f3.png","sinopsis":"qq","penulis":"qwe","sutradara":"qq","staff":"qq","dibuat_oleh":"AdminGNCD","dimodif_oleh":null}
-DEBUG - 2025-03-21 03:39:22 --> ID Teater yang dibuat: 64
-DEBUG - 2025-03-21 03:39:22 --> ID Audisi yang dibuat: 24
-DEBUG - 2025-03-21 03:39:22 --> ID Aktor yang dibuat: 24
-DEBUG - 2025-03-21 03:39:22 --> Decoded schedule: Array
-(
-    [0] => Array
-        (
-            [tanggal] => 2025-03-21
-            [waktu_mulai] => 10:35
-            [waktu_selesai] => 11:35
-            [tipe_harga] => Bayar
-            [harga] => 123
-            [kota] => qwe
-            [tempat] => qwe
-        )
-
-)
-
-DEBUG - 2025-03-21 03:39:22 --> Isi schedule: [{"tanggal":"2025-03-21","waktu_mulai":"10:35","waktu_selesai":"11:35","tipe_harga":"Bayar","harga":"123","kota":"qwe","tempat":"qwe"}]
-DEBUG - 2025-03-21 03:39:22 --> Jadwal ke-0: Tanggal: 2025-03-21, Mulai: 10:35, Selesai: 11:35, Kota: qwe, Tempat: qwe
-DEBUG - 2025-03-21 03:39:22 --> Harga dari schedule: 123
-DEBUG - 2025-03-21 03:39:22 --> Data lokasi yang akan disimpan: {"tempat":"qwe","kota":"qwe"}
-DEBUG - 2025-03-21 03:39:22 --> ID Location yang didapat setelah insert: 49
-DEBUG - 2025-03-21 03:39:22 --> Harga sebelum validasi: 123
-DEBUG - 2025-03-21 03:39:22 --> Data jadwal diterima: [{"tanggal":"2025-03-21","waktu_mulai":"10:35","waktu_selesai":"11:35","tipe_harga":"Bayar","harga":"123","kota":"qwe","tempat":"qwe"}]
-INFO - 2025-03-21 03:39:25 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
-INFO - 2025-03-21 03:39:26 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
-INFO - 2025-03-21 03:39:56 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
-INFO - 2025-03-21 03:39:56 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
-INFO - 2025-03-21 03:40:39 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
-INFO - 2025-03-21 03:40:45 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
-DEBUG - 2025-03-21 03:40:45 --> Last Query: NULL
-DEBUG - 2025-03-21 03:40:45 --> Poster uploaded: uploads/posters/1742528445_1e181f9c1e90e2d887a0.png
-DEBUG - 2025-03-21 03:40:45 --> Request data: {"csrf_test_name":"154242edf1c1a7d50ef3c73ee6bc4438","tipe_teater":"audisi","id_kategori":"1","judul":"qq","sinopsis":"qq","karakter_audisi":"qq","deskripsi_karakter":"qq","tanggal":"2025-03-21","waktu_mulai":"10:40","waktu_selesai":"11:40","tipe_harga":"Bayar","harga":"123","kota":["lainnya","qe"],"kota_real":"qe","tempat":"qwe","hidden_schedule":"[{\"tanggal\":\"2025-03-21\",\"waktu_mulai\":\"10:40\",\"waktu_selesai\":\"11:40\",\"tipe_harga\":\"Bayar\",\"harga\":\"123\",\"kota\":\"qe\",\"tempat\":\"qwe\"}]","penulis":"qwe","syarat":"qq","syarat_dokumen":"qq","sutradara":"qq","staff":"qq","gaji":"123","komitmen":"qwe","mitra_teater":"5","acc_name":[""],"hidden_accounts":"[{\"platformId\":\"1\",\"platformName\":\"instagram\",\"account\":\"pearlmhrlk\"}]","judul_web":[""],"url_web":[""],"hidden_web":"[{\"title\":\"qwe\",\"url\":\"qwe\"}]"}
-DEBUG - 2025-03-21 03:40:45 --> Data yang diterima: {"tipe_teater":"audisi","judul":"qq","poster":"uploads\/posters\/1742528445_1e181f9c1e90e2d887a0.png","sinopsis":"qq","penulis":"qwe","sutradara":"qq","staff":"qq","dibuat_oleh":"AdminGNCD","dimodif_oleh":null}
-DEBUG - 2025-03-21 03:40:45 --> ID Teater yang dibuat: 65
-DEBUG - 2025-03-21 03:40:45 --> ID Audisi yang dibuat: 25
-DEBUG - 2025-03-21 03:40:45 --> ID Aktor yang dibuat: 25
-DEBUG - 2025-03-21 03:40:45 --> Decoded schedule: Array
-(
-    [0] => Array
-        (
-            [tanggal] => 2025-03-21
-            [waktu_mulai] => 10:40
-            [waktu_selesai] => 11:40
-            [tipe_harga] => Bayar
-            [harga] => 123
-            [kota] => qe
-            [tempat] => qwe
-        )
-
-)
-
-DEBUG - 2025-03-21 03:40:45 --> Isi schedule: [{"tanggal":"2025-03-21","waktu_mulai":"10:40","waktu_selesai":"11:40","tipe_harga":"Bayar","harga":"123","kota":"qe","tempat":"qwe"}]
-DEBUG - 2025-03-21 03:40:45 --> Jadwal ke-0: Tanggal: 2025-03-21, Mulai: 10:40, Selesai: 11:40, Kota: qe, Tempat: qwe
-DEBUG - 2025-03-21 03:40:45 --> Harga dari schedule: 123
-DEBUG - 2025-03-21 03:40:45 --> Data lokasi yang akan disimpan: {"tempat":"qwe","kota":"qe"}
-DEBUG - 2025-03-21 03:40:45 --> ID Location yang didapat setelah insert: 50
-DEBUG - 2025-03-21 03:40:45 --> Harga sebelum validasi: 123
-DEBUG - 2025-03-21 03:40:45 --> Data jadwal diterima: [{"tanggal":"2025-03-21","waktu_mulai":"10:40","waktu_selesai":"11:40","tipe_harga":"Bayar","harga":"123","kota":"qe","tempat":"qwe"}]
-INFO - 2025-03-21 03:40:51 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
-INFO - 2025-03-21 03:40:52 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
-INFO - 2025-03-21 03:43:28 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
-INFO - 2025-03-21 03:43:29 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
-INFO - 2025-03-21 03:43:45 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
-INFO - 2025-03-21 03:44:03 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
-ERROR - 2025-03-21 03:44:03 --> mysqli_sql_exception: Cannot add or update a child row: a foreign key constraint fails (`db_teaterform`.`m_audisi`, CONSTRAINT `m_audisi_ibfk_2` FOREIGN KEY (`id_kategori`) REFERENCES `m_kategori_audisi` (`id_kategori`)) in E:\laragon\www\CodeIgniter4\system\Database\MySQLi\Connection.php:312
-Stack trace:
-#0 E:\laragon\www\CodeIgniter4\system\Database\MySQLi\Connection.php(312): mysqli->query('INSERT INTO `m_...', 0)
-#1 E:\laragon\www\CodeIgniter4\system\Database\BaseConnection.php(734): CodeIgniter\Database\MySQLi\Connection->execute('INSERT INTO `m_...')
-#2 E:\laragon\www\CodeIgniter4\system\Database\BaseConnection.php(648): CodeIgniter\Database\BaseConnection->simpleQuery('INSERT INTO `m_...')
-#3 E:\laragon\www\CodeIgniter4\system\Database\BaseBuilder.php(2340): CodeIgniter\Database\BaseConnection->query('INSERT INTO `m_...', Array, false)
-#4 E:\laragon\www\CodeIgniter4\system\Model.php(394): CodeIgniter\Database\BaseBuilder->insert()
-#5 E:\laragon\www\CodeIgniter4\system\BaseModel.php(840): CodeIgniter\Model->doInsert(Array)
-#6 E:\laragon\www\CodeIgniter4\system\Model.php(802): CodeIgniter\BaseModel->insert(Array, true)
-#7 E:\laragon\www\CodeIgniter4\app\Controllers\Admin.php(820): CodeIgniter\Model->insert(Array)
-#8 E:\laragon\www\CodeIgniter4\system\CodeIgniter.php(933): App\Controllers\Admin->saveAuditionAktor()
-#9 E:\laragon\www\CodeIgniter4\system\CodeIgniter.php(509): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\Admin))
-#10 E:\laragon\www\CodeIgniter4\system\CodeIgniter.php(355): CodeIgniter\CodeIgniter->handleRequest(NULL, Object(Config\Cache), false)
-#11 E:\laragon\www\CodeIgniter4\system\Boot.php(325): CodeIgniter\CodeIgniter->run()
-#12 E:\laragon\www\CodeIgniter4\system\Boot.php(67): CodeIgniter\Boot::runCodeIgniter(Object(CodeIgniter\CodeIgniter))
-#13 E:\laragon\www\CodeIgniter4\public\index.php(59): CodeIgniter\Boot::bootWeb(Object(Config\Paths))
-#14 {main}
-ERROR - 2025-03-21 03:44:03 --> mysqli_sql_exception: Cannot add or update a child row: a foreign key constraint fails (`db_teaterform`.`m_audisi_aktor`, CONSTRAINT `m_audisi_aktor_ibfk_1` FOREIGN KEY (`id_audisi`) REFERENCES `m_audisi` (`id_audisi`)) in E:\laragon\www\CodeIgniter4\system\Database\MySQLi\Connection.php:312
-Stack trace:
-#0 E:\laragon\www\CodeIgniter4\system\Database\MySQLi\Connection.php(312): mysqli->query('INSERT INTO `m_...', 0)
-#1 E:\laragon\www\CodeIgniter4\system\Database\BaseConnection.php(734): CodeIgniter\Database\MySQLi\Connection->execute('INSERT INTO `m_...')
-#2 E:\laragon\www\CodeIgniter4\system\Database\BaseConnection.php(648): CodeIgniter\Database\BaseConnection->simpleQuery('INSERT INTO `m_...')
-#3 E:\laragon\www\CodeIgniter4\system\Database\BaseBuilder.php(2340): CodeIgniter\Database\BaseConnection->query('INSERT INTO `m_...', Array, false)
-#4 E:\laragon\www\CodeIgniter4\system\Model.php(394): CodeIgniter\Database\BaseBuilder->insert()
-#5 E:\laragon\www\CodeIgniter4\system\BaseModel.php(840): CodeIgniter\Model->doInsert(Array)
-#6 E:\laragon\www\CodeIgniter4\system\Model.php(802): CodeIgniter\BaseModel->insert(Array, true)
-#7 E:\laragon\www\CodeIgniter4\app\Controllers\Admin.php(833): CodeIgniter\Model->insert(Array)
-#8 E:\laragon\www\CodeIgniter4\system\CodeIgniter.php(933): App\Controllers\Admin->saveAuditionAktor()
-#9 E:\laragon\www\CodeIgniter4\system\CodeIgniter.php(509): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\Admin))
-#10 E:\laragon\www\CodeIgniter4\system\CodeIgniter.php(355): CodeIgniter\CodeIgniter->handleRequest(NULL, Object(Config\Cache), false)
-#11 E:\laragon\www\CodeIgniter4\system\Boot.php(325): CodeIgniter\CodeIgniter->run()
-#12 E:\laragon\www\CodeIgniter4\system\Boot.php(67): CodeIgniter\Boot::runCodeIgniter(Object(CodeIgniter\CodeIgniter))
-#13 E:\laragon\www\CodeIgniter4\public\index.php(59): CodeIgniter\Boot::bootWeb(Object(Config\Paths))
-#14 {main}
-INFO - 2025-03-21 03:46:09 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
-INFO - 2025-03-21 03:46:10 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
-INFO - 2025-03-21 03:46:41 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
-INFO - 2025-03-21 03:46:51 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
-ERROR - 2025-03-21 03:46:51 --> mysqli_sql_exception: Cannot add or update a child row: a foreign key constraint fails (`db_teaterform`.`m_audisi`, CONSTRAINT `m_audisi_ibfk_2` FOREIGN KEY (`id_kategori`) REFERENCES `m_kategori_audisi` (`id_kategori`)) in E:\laragon\www\CodeIgniter4\system\Database\MySQLi\Connection.php:312
-Stack trace:
-#0 E:\laragon\www\CodeIgniter4\system\Database\MySQLi\Connection.php(312): mysqli->query('INSERT INTO `m_...', 0)
-#1 E:\laragon\www\CodeIgniter4\system\Database\BaseConnection.php(734): CodeIgniter\Database\MySQLi\Connection->execute('INSERT INTO `m_...')
-#2 E:\laragon\www\CodeIgniter4\system\Database\BaseConnection.php(648): CodeIgniter\Database\BaseConnection->simpleQuery('INSERT INTO `m_...')
-#3 E:\laragon\www\CodeIgniter4\system\Database\BaseBuilder.php(2340): CodeIgniter\Database\BaseConnection->query('INSERT INTO `m_...', Array, false)
-#4 E:\laragon\www\CodeIgniter4\system\Model.php(394): CodeIgniter\Database\BaseBuilder->insert()
-#5 E:\laragon\www\CodeIgniter4\system\BaseModel.php(840): CodeIgniter\Model->doInsert(Array)
-#6 E:\laragon\www\CodeIgniter4\system\Model.php(802): CodeIgniter\BaseModel->insert(Array, true)
-#7 E:\laragon\www\CodeIgniter4\app\Controllers\Admin.php(668): CodeIgniter\Model->insert(Array)
-#8 E:\laragon\www\CodeIgniter4\system\CodeIgniter.php(933): App\Controllers\Admin->saveAuditionAktor()
-#9 E:\laragon\www\CodeIgniter4\system\CodeIgniter.php(509): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\Admin))
-#10 E:\laragon\www\CodeIgniter4\system\CodeIgniter.php(355): CodeIgniter\CodeIgniter->handleRequest(NULL, Object(Config\Cache), false)
-#11 E:\laragon\www\CodeIgniter4\system\Boot.php(325): CodeIgniter\CodeIgniter->run()
-#12 E:\laragon\www\CodeIgniter4\system\Boot.php(67): CodeIgniter\Boot::runCodeIgniter(Object(CodeIgniter\CodeIgniter))
-#13 E:\laragon\www\CodeIgniter4\public\index.php(59): CodeIgniter\Boot::bootWeb(Object(Config\Paths))
-#14 {main}
-ERROR - 2025-03-21 03:46:51 --> mysqli_sql_exception: Cannot add or update a child row: a foreign key constraint fails (`db_teaterform`.`m_audisi_aktor`, CONSTRAINT `m_audisi_aktor_ibfk_1` FOREIGN KEY (`id_audisi`) REFERENCES `m_audisi` (`id_audisi`)) in E:\laragon\www\CodeIgniter4\system\Database\MySQLi\Connection.php:312
-Stack trace:
-#0 E:\laragon\www\CodeIgniter4\system\Database\MySQLi\Connection.php(312): mysqli->query('INSERT INTO `m_...', 0)
-#1 E:\laragon\www\CodeIgniter4\system\Database\BaseConnection.php(734): CodeIgniter\Database\MySQLi\Connection->execute('INSERT INTO `m_...')
-#2 E:\laragon\www\CodeIgniter4\system\Database\BaseConnection.php(648): CodeIgniter\Database\BaseConnection->simpleQuery('INSERT INTO `m_...')
-#3 E:\laragon\www\CodeIgniter4\system\Database\BaseBuilder.php(2340): CodeIgniter\Database\BaseConnection->query('INSERT INTO `m_...', Array, false)
-#4 E:\laragon\www\CodeIgniter4\system\Model.php(394): CodeIgniter\Database\BaseBuilder->insert()
-#5 E:\laragon\www\CodeIgniter4\system\BaseModel.php(840): CodeIgniter\Model->doInsert(Array)
-#6 E:\laragon\www\CodeIgniter4\system\Model.php(802): CodeIgniter\BaseModel->insert(Array, true)
-#7 E:\laragon\www\CodeIgniter4\app\Controllers\Admin.php(681): CodeIgniter\Model->insert(Array)
-#8 E:\laragon\www\CodeIgniter4\system\CodeIgniter.php(933): App\Controllers\Admin->saveAuditionAktor()
-#9 E:\laragon\www\CodeIgniter4\system\CodeIgniter.php(509): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\Admin))
-#10 E:\laragon\www\CodeIgniter4\system\CodeIgniter.php(355): CodeIgniter\CodeIgniter->handleRequest(NULL, Object(Config\Cache), false)
-#11 E:\laragon\www\CodeIgniter4\system\Boot.php(325): CodeIgniter\CodeIgniter->run()
-#12 E:\laragon\www\CodeIgniter4\system\Boot.php(67): CodeIgniter\Boot::runCodeIgniter(Object(CodeIgniter\CodeIgniter))
-#13 E:\laragon\www\CodeIgniter4\public\index.php(59): CodeIgniter\Boot::bootWeb(Object(Config\Paths))
-#14 {main}
-INFO - 2025-03-21 03:47:43 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
-ERROR - 2025-03-21 03:47:43 --> mysqli_sql_exception: Cannot add or update a child row: a foreign key constraint fails (`db_teaterform`.`m_audisi`, CONSTRAINT `m_audisi_ibfk_2` FOREIGN KEY (`id_kategori`) REFERENCES `m_kategori_audisi` (`id_kategori`)) in E:\laragon\www\CodeIgniter4\system\Database\MySQLi\Connection.php:312
-Stack trace:
-#0 E:\laragon\www\CodeIgniter4\system\Database\MySQLi\Connection.php(312): mysqli->query('INSERT INTO `m_...', 0)
-#1 E:\laragon\www\CodeIgniter4\system\Database\BaseConnection.php(734): CodeIgniter\Database\MySQLi\Connection->execute('INSERT INTO `m_...')
-#2 E:\laragon\www\CodeIgniter4\system\Database\BaseConnection.php(648): CodeIgniter\Database\BaseConnection->simpleQuery('INSERT INTO `m_...')
-#3 E:\laragon\www\CodeIgniter4\system\Database\BaseBuilder.php(2340): CodeIgniter\Database\BaseConnection->query('INSERT INTO `m_...', Array, false)
-#4 E:\laragon\www\CodeIgniter4\system\Model.php(394): CodeIgniter\Database\BaseBuilder->insert()
-#5 E:\laragon\www\CodeIgniter4\system\BaseModel.php(840): CodeIgniter\Model->doInsert(Array)
-#6 E:\laragon\www\CodeIgniter4\system\Model.php(802): CodeIgniter\BaseModel->insert(Array, true)
-#7 E:\laragon\www\CodeIgniter4\app\Controllers\Admin.php(558): CodeIgniter\Model->insert(Array)
-#8 E:\laragon\www\CodeIgniter4\system\CodeIgniter.php(933): App\Controllers\Admin->saveAuditionAktor()
-#9 E:\laragon\www\CodeIgniter4\system\CodeIgniter.php(509): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\Admin))
-#10 E:\laragon\www\CodeIgniter4\system\CodeIgniter.php(355): CodeIgniter\CodeIgniter->handleRequest(NULL, Object(Config\Cache), false)
-#11 E:\laragon\www\CodeIgniter4\system\Boot.php(325): CodeIgniter\CodeIgniter->run()
-#12 E:\laragon\www\CodeIgniter4\system\Boot.php(67): CodeIgniter\Boot::runCodeIgniter(Object(CodeIgniter\CodeIgniter))
-#13 E:\laragon\www\CodeIgniter4\public\index.php(59): CodeIgniter\Boot::bootWeb(Object(Config\Paths))
-#14 {main}
-ERROR - 2025-03-21 03:47:43 --> mysqli_sql_exception: Cannot add or update a child row: a foreign key constraint fails (`db_teaterform`.`m_audisi_aktor`, CONSTRAINT `m_audisi_aktor_ibfk_1` FOREIGN KEY (`id_audisi`) REFERENCES `m_audisi` (`id_audisi`)) in E:\laragon\www\CodeIgniter4\system\Database\MySQLi\Connection.php:312
-Stack trace:
-#0 E:\laragon\www\CodeIgniter4\system\Database\MySQLi\Connection.php(312): mysqli->query('INSERT INTO `m_...', 0)
-#1 E:\laragon\www\CodeIgniter4\system\Database\BaseConnection.php(734): CodeIgniter\Database\MySQLi\Connection->execute('INSERT INTO `m_...')
-#2 E:\laragon\www\CodeIgniter4\system\Database\BaseConnection.php(648): CodeIgniter\Database\BaseConnection->simpleQuery('INSERT INTO `m_...')
-#3 E:\laragon\www\CodeIgniter4\system\Database\BaseBuilder.php(2340): CodeIgniter\Database\BaseConnection->query('INSERT INTO `m_...', Array, false)
-#4 E:\laragon\www\CodeIgniter4\system\Model.php(394): CodeIgniter\Database\BaseBuilder->insert()
-#5 E:\laragon\www\CodeIgniter4\system\BaseModel.php(840): CodeIgniter\Model->doInsert(Array)
-#6 E:\laragon\www\CodeIgniter4\system\Model.php(802): CodeIgniter\BaseModel->insert(Array, true)
-#7 E:\laragon\www\CodeIgniter4\app\Controllers\Admin.php(567): CodeIgniter\Model->insert(Array)
-#8 E:\laragon\www\CodeIgniter4\system\CodeIgniter.php(933): App\Controllers\Admin->saveAuditionAktor()
-#9 E:\laragon\www\CodeIgniter4\system\CodeIgniter.php(509): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\Admin))
-#10 E:\laragon\www\CodeIgniter4\system\CodeIgniter.php(355): CodeIgniter\CodeIgniter->handleRequest(NULL, Object(Config\Cache), false)
-#11 E:\laragon\www\CodeIgniter4\system\Boot.php(325): CodeIgniter\CodeIgniter->run()
-#12 E:\laragon\www\CodeIgniter4\system\Boot.php(67): CodeIgniter\Boot::runCodeIgniter(Object(CodeIgniter\CodeIgniter))
-#13 E:\laragon\www\CodeIgniter4\public\index.php(59): CodeIgniter\Boot::bootWeb(Object(Config\Paths))
-#14 {main}
-INFO - 2025-03-21 04:23:07 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
-INFO - 2025-03-21 04:23:09 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
-INFO - 2025-03-21 04:25:33 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
-INFO - 2025-03-21 04:25:48 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
-INFO - 2025-03-21 04:34:37 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
-INFO - 2025-03-21 04:35:05 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
-INFO - 2025-03-21 04:38:08 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
-INFO - 2025-03-21 04:38:09 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
-INFO - 2025-03-21 04:40:04 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
-INFO - 2025-03-21 04:48:34 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
-INFO - 2025-03-21 04:48:35 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
-INFO - 2025-03-21 04:50:34 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
-INFO - 2025-03-21 04:50:35 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
-INFO - 2025-03-21 04:50:54 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
-INFO - 2025-03-21 04:51:20 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
-INFO - 2025-03-21 04:51:25 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
-INFO - 2025-03-21 04:51:26 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+INFO - 2025-03-21 21:51:14 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+INFO - 2025-03-21 21:51:14 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+INFO - 2025-03-21 21:51:14 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+INFO - 2025-03-21 21:51:37 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+INFO - 2025-03-21 21:51:41 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.

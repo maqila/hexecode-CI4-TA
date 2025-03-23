@@ -4,6 +4,7 @@ namespace App\Controllers;
 
 use App\Models\User;
 use App\Models\AudiensModel;
+use App\Models\BuktiPembayaran;
 use CodeIgniter\Controller;
 
 class Audiens extends BaseController
@@ -12,6 +13,7 @@ class Audiens extends BaseController
     protected $userModel;
     protected $user;
     protected $audiensModel;
+    protected $buktiPembayaranModel;
 
     public function __construct()
     {
@@ -19,6 +21,7 @@ class Audiens extends BaseController
 
         $this->userModel = new User(); // Pastikan UserModel sudah ada
         $this->audiensModel = new AudiensModel(); // Instance model Audiens
+        $this->buktiPembayaranModel = new BuktiPembayaran(); // Instance model BuktiPembayaran
         $this->user = session()->get(); // Ambil semua data dari session
     }
 
@@ -635,5 +638,40 @@ class Audiens extends BaseController
         return view('templates/headerAudiens',  ['title' => 'Detail Audisi Staff Teater', 'user'  => $this->user]) .
             view('templates/bodyDetailAudisiStaff', ['groupedSchedule' => $groupedSchedule]) .
             view('templates/footerListPenampilan', ['needsDropdown' => true]);
+    }
+
+    public function uploadBuktiPembayaran()
+    {
+        $userId = session()->get('id_user');
+
+        // Cari id_audiens berdasarkan id_user
+        $audiens = $this->audiensModel->where('id_user', $userId)->first();
+        if (!$audiens) {
+            return redirect()->back()->with('error', 'Data audiens tidak ditemukan.');
+        }
+
+        $idAudiens = $audiens['id_audiens'];
+        $idTeater = $this->request->getPost('id_teater');
+        $file = $this->request->getFile('bukti');
+
+        if (!$file->isValid()) {
+            return redirect()->back()->with('error', 'File tidak valid.');
+        }
+
+        $fileName = $file->getRandomName();
+        $file->move(ROOTPATH . 'public/uploads/bukti/', $fileName);
+
+        $buktiData = [
+            'id_audiens' => $idAudiens,
+            'id_teater' => $idTeater,
+            'tgl_upload' => date('Y-m-d H:i:s'),
+            'is_valid' => null,
+            'tgl_validated' => date('Y-m-d H:i:s'),
+            // 'file_path' => 'uploads/bukti/' . $fileName,
+        ];
+
+        $this->buktiPembayaranModel->save($buktiData);
+
+        return redirect()->to(base_url('Audiens/homepageAudiens'))->with('success', 'Bukti pembayaran berhasil diupload.');
     }
 }
